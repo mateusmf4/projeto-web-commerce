@@ -10,6 +10,17 @@ body {
   color: var(--text);
 }
 
+:root {
+  --content-side-gap: calc(50px + max(0px, (100vw - (1440px + 100px)) / 2));
+
+  --gap-10: 27px;
+  --gap-5: calc(var(--gap-10) * 0.5);
+  --gap-4: calc(var(--gap-10) * 0.4);
+  --gap-3: calc(var(--gap-10) * 0.3);
+  --gap-2: calc(var(--gap-10) * 0.2);
+  --gap-1: calc(var(--gap-10) * 0.1);
+}
+
 /* Classes utilitarias */
 
 .flex-1 {
