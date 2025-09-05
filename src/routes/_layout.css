@@ -1,0 +1,46 @@
+.navbar {
+  background: var(--background-100);
+  padding: 10px;
+  padding-inline: 20px;
+  min-height: 60px;
+
+  display: flex;
+  align-items: stretch;
+
+  .navbar--links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-left: 20px;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &[data-active="true"] {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .navbar--carrinho {
+    background: var(--background-200);
+    padding-inline: 0.5em;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+      }
+    }
+  }
+}

@@ -1,6 +1,17 @@
-html,
+@import url("./theme.css");
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+  background: var(--background);
+  font-family: "Inter", Arial, sans-serif;
+  color: var(--text);
+}
+
+/* Classes utilitarias */
+
+.flex-1 {
+  flex: 1;
 }

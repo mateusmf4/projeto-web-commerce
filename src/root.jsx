@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import "normalize.css";
 import "./app.css";
 
 export const links = () => [

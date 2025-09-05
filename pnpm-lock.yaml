@@ -17,6 +17,9 @@ importers:
       isbot:
         specifier: ^5.1.27
         version: 5.1.30
+      normalize.css:
+        specifier: ^8.0.1
+        version: 8.0.1
       react:
         specifier: ^19.1.0
         version: 19.1.1
@@ -1008,6 +1011,9 @@ packages:
   normalize-package-data@5.0.0:
     resolution: {integrity: sha512-h9iPVIfrVZ9wVYQnxFgtw1ugSvGEMOlyPWWtm8BMJhnwyEL/FLbYbTY3V3PpjI/BUK67n9PEWDu6eHzu1fB15Q==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+
+  normalize.css@8.0.1:
+    resolution: {integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==}
 
   npm-install-checks@6.3.0:
     resolution: {integrity: sha512-W29RiK/xtpCGqn6f3ixfRYGk+zRyr+Ew9F2E20BfXxT5/euLdA/Nm7fO7OeTGuAmTs30cpgInyJ0cYe708YTZw==}
@@ -2335,6 +2341,8 @@ snapshots:
       is-core-module: 2.16.1
       semver: 7.7.2
       validate-npm-package-license: 3.0.4
+
+  normalize.css@8.0.1: {}
 
   npm-install-checks@6.3.0:
     dependencies:
