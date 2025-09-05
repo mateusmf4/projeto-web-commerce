@@ -5,7 +5,7 @@ main {
   display: flex;
   gap: var(--gap-10);
 
-  .main--categorias {
+  .main__categorias {
     background: var(--background-100);
     padding: var(--gap-5);
     min-width: 250px;
@@ -15,14 +15,14 @@ main {
     }
   }
 
-  .main--listagem {
+  .main__listagem {
     flex: 1;
 
     display: flex;
     flex-direction: column;
     gap: var(--gap-10);
 
-    .main--listagem--pesquisa {
+    .main__listagem__pesquisa {
       display: flex;
       align-items: center;
 
@@ -47,7 +47,7 @@ main {
       }
     }
 
-    .main--listagem--produtos {
+    .main__listagem__produtos {
       flex: 1;
 
       display: flex;
@@ -80,7 +80,7 @@ main {
     margin: 0;
   }
 
-  .produtoCard--nome {
+  .produtoCard__nome {
     margin: 0;
     max-width: var(--_image-size);
     text-wrap: wrap;
@@ -95,7 +95,7 @@ main {
     overflow: hidden;
   }
 
-  .produtoCard--preco {
+  .produtoCard__preco {
     margin: 0;
     font-weight: 800;
   }

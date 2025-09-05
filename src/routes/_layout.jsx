@@ -10,7 +10,7 @@ export default function LayoutUsuario() {
     <>
       <nav className="navbar">
         <img src={Logo} alt="Logotipo" />
-        <div className="navbar--links">
+        <div className="navbar__links">
           <a href="/" data-active={location.pathname === "/"}>
             Home
           </a>
@@ -24,7 +24,7 @@ export default function LayoutUsuario() {
 
         <div className="flex-1"></div>
 
-        <div className="navbar--carrinho">
+        <div className="navbar__carrinho">
           <a href="/carrinho">
             <ShoppingCartIcon />
           </a>
