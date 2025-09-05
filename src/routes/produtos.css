@@ -50,9 +50,12 @@ main {
     .main__listagem__produtos {
       flex: 1;
 
-      display: flex;
-      gap: var(--gap-10);
-      flex-wrap: wrap;
+      display: grid;
+      /* depende do tamanho do produtoCard */
+      grid-template-columns: repeat(auto-fill, 210px);
+      justify-content: space-between;
+      row-gap: var(--gap-10);
+      column-gap: var(--gap-4);
     }
   }
 }
@@ -98,5 +101,9 @@ main {
   .produtoCard__preco {
     margin: 0;
     font-weight: 800;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--background-300);
   }
 }

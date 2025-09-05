@@ -4,7 +4,7 @@ import "./produtos.css";
 function ProdutoCard() {
   return (
     <a href="/produtos" className="produtoCard">
-      <img src="https://api.dicebear.com/9.x/shapes/svg" alt="produto" />
+      <img src="https://api.dicebear.com/9.x/shapes/svg?seed=2" alt="produto" />
       <h3 class="produtoCard__nome">
         Nome do produto 100g DeMarca Barata sabor Pimenta
       </h3>
@@ -30,6 +30,7 @@ export default function Produtos() {
         </div>
 
         <div className="main__listagem__produtos">
+          <ProdutoCard />
           <ProdutoCard />
           <ProdutoCard />
           <ProdutoCard />
