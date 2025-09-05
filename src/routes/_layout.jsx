@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router";
 import "./_layout.css";
+import { ShoppingCartIcon } from "lucide-react";
 import Logo from "../assets/logo.png";
 
 export default function LayoutUsuario() {
@@ -24,7 +25,9 @@ export default function LayoutUsuario() {
         <div className="flex-1"></div>
 
         <div className="navbar--carrinho">
-          <a href="/carrinho">Carrinho</a>
+          <a href="/carrinho">
+            <ShoppingCartIcon />
+          </a>
         </div>
       </nav>
       <Outlet />
