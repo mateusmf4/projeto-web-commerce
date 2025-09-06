@@ -13,6 +13,10 @@ main {
     h2 {
       margin: 0;
     }
+
+    @media (width < 1025px) {
+      display: none;
+    }
   }
 
   .main__listagem {
@@ -26,8 +30,9 @@ main {
       display: flex;
       align-items: center;
 
-      background: var(--background-100);
       padding-right: var(--gap-5);
+
+      border: 1px solid var(--secondary);
 
       input {
         flex: 1;
@@ -42,8 +47,13 @@ main {
         }
       }
 
+      svg {
+        color: var(--secondary);
+      }
+
       &:focus-within {
-        outline: 2px solid var(--background-300);
+        outline: 1px solid var(--background-300);
+        box-shadow: var(--shadow-md);
       }
     }
 
@@ -56,6 +66,11 @@ main {
       justify-content: space-between;
       row-gap: var(--gap-10);
       column-gap: var(--gap-4);
+
+      @media (width < 560px) {
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: start;
+      }
     }
   }
 }

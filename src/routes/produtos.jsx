@@ -5,10 +5,10 @@ function ProdutoCard() {
   return (
     <a href="/produtos" className="produtoCard">
       <img src="https://api.dicebear.com/9.x/shapes/svg?seed=2" alt="produto" />
-      <h3 class="produtoCard__nome">
+      <h3 className="produtoCard__nome">
         Nome do produto 100g DeMarca Barata sabor Pimenta
       </h3>
-      <p class="produtoCard__preco">R$ 25,50</p>
+      <p className="produtoCard__preco">R$ 25,50</p>
     </a>
   );
 }

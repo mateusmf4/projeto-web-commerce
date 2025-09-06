@@ -9,7 +9,7 @@ export default function LayoutUsuario() {
   return (
     <>
       <nav className="navbar">
-        <img src={Logo} alt="Logotipo" />
+        <img className="navbar__logo" src={Logo} alt="Logotipo" />
         <div className="navbar__links">
           <a href="/" data-active={location.pathname === "/"}>
             Home

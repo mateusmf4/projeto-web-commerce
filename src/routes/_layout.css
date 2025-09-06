@@ -45,4 +45,14 @@
       }
     }
   }
+
+  @media (width < 600px) {
+    .navbar__logo {
+      display: none;
+    }
+
+    .navbar__links {
+      margin-left: 0;
+    }
+  }
 }
