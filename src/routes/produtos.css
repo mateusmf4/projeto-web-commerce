@@ -15,10 +15,6 @@ main {
       margin-bottom: var(--gap-5);
     }
 
-    @media (width < 1025px) {
-      display: none;
-    }
-
     .main__sidebar__categorias {
       display: flex;
       flex-direction: column;
@@ -32,6 +28,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: var(--gap-10);
+
+    width: 100%;
 
     .main__listagem__pesquisa {
       display: flex;
@@ -51,6 +49,7 @@ main {
 
         &::placeholder {
           color: var(--text-500);
+          user-select: none;
         }
       }
 
@@ -128,6 +127,16 @@ main {
   &:focus-visible {
     outline: 2px solid var(--background-300);
   }
+
+  transition:
+    transform 100ms,
+    box-shadow 100ms;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    outline: 2px solid var(--secondary);
+  }
 }
 
 .categoria {
@@ -152,6 +161,10 @@ main {
 
     font-size: 1.1em;
     font-weight: 500;
+
+    &[data-active="true"] {
+      text-decoration: underline;
+    }
   }
 
   .categoria__tags {
@@ -171,8 +184,103 @@ main {
     }
 
     input {
+      cursor: inherit;
+
+      accent-color: var(--primary);
       width: 1.2em;
       aspect-ratio: 1;
     }
+  }
+}
+
+.main__listagem__categoria-btn {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 1px solid var(--primary);
+  padding: 0.2em;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.mobile-tags {
+  display: flex;
+
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  gap: 1em;
+  align-items: stretch;
+
+  button {
+    text-wrap: nowrap;
+    background: none;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    border: 1px solid var(--secondary);
+    color: var(--text-900);
+    padding: var(--gap-3);
+
+    cursor: pointer;
+
+    &[data-active="true"] {
+      border-color: var(--secondary-700);
+      font-weight: 500;
+    }
+  }
+}
+
+.modal-categoria {
+  border: 0;
+  width: 100%;
+
+  &::backdrop {
+    background-color: rgba(0 0 0 / 0.5);
+  }
+
+  h2 {
+    margin: 0;
+    margin-bottom: var(--gap-5);
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1em;
+
+    button {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background: none;
+
+      cursor: pointer;
+      user-select: none;
+
+      &[data-active="true"] {
+        text-decoration: underline;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+/* Remover o sidebar */
+@media (width < 1025px) {
+  .main__sidebar {
+    display: none;
+  }
+}
+@media (width >= 1025px) {
+  .mobile-tags {
+    display: none;
+  }
+  .main__listagem__categoria-btn {
+    display: none;
   }
 }
