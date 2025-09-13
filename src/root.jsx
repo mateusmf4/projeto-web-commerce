@@ -7,8 +7,8 @@ import {
   ScrollRestoration,
 } from "react-router";
 
-import "normalize.css";
-import "./app.css";
+// tomara que não de problema..
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 export const links = () => [
   {

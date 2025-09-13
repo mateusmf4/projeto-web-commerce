@@ -2,6 +2,16 @@ import { SearchIcon } from "lucide-react";
 import "./produtos.css";
 import { CheckIcon, ChevronRightIcon } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Collapse,
+  Form,
+  FormControl,
+  InputGroup,
+  Modal,
+} from "react-bootstrap";
 
 function Categoria({
   nome,
@@ -83,13 +93,21 @@ function TagsMobile({ tags, tagsAtivas, toggleTag, resetarTags }) {
 
 function ProdutoCard() {
   return (
-    <a href="/produtos" className="produtoCard">
-      <img src="https://api.dicebear.com/9.x/shapes/svg?seed=2" alt="produto" />
-      <h3 className="produtoCard__nome">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-      </h3>
-      <p className="produtoCard__preco">R$ 25,50</p>
-    </a>
+    <Card className="produtoCard">
+      <Card.Img
+        variant="top"
+        src="https://api.dicebear.com/9.x/shapes/svg?seed=2"
+        alt="produto"
+      />
+      <Card.Body>
+        <Card.Title>
+          <a href="/produtos" className="stretched-link produtoCard__title">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          </a>
+        </Card.Title>
+        <Card.Text>R$ 25,50</Card.Text>
+      </Card.Body>
+    </Card>
   );
 }
 
@@ -130,7 +148,6 @@ export default function Produtos() {
     setTagsAtivas([]);
   };
 
-  const modalCategoriaRef = useRef(null);
   return (
     <main>
       <div className="main__sidebar">
@@ -152,33 +169,19 @@ export default function Produtos() {
         </div>
       </div>
       <div className="main__listagem">
-        <button
+        <Form.Select
+          size="lg"
+          aria-label="Selecione uma categoria"
+          onChange={(e) => mudarCategoria(categorias[e.target.selectedIndex])}
           className="main__listagem__categoria-btn"
-          type="button"
-          onClick={() => modalCategoriaRef.current.showModal()}
         >
-          <ChevronRightIcon strokeWidth={1.5} size="1.4em" />
-          {categorias[categoriaAtiva]}
-        </button>
-        <dialog className="modal-categoria" ref={modalCategoriaRef}>
-          <h2>Categorias</h2>
+          {categorias.map((categoria, i) => (
+            <option key={categoria} value={i}>
+              {categoria}
+            </option>
+          ))}
+        </Form.Select>
 
-          <div className="list">
-            {categorias.map((categoria, i) => (
-              <button
-                key={categoria}
-                type="button"
-                data-active={i === categoriaAtiva}
-                onClick={() => {
-                  mudarCategoria(categoria);
-                  modalCategoriaRef.current.close();
-                }}
-              >
-                {categoria}
-              </button>
-            ))}
-          </div>
-        </dialog>
         <TagsMobile
           tags={tags}
           tagsAtivas={tagsAtivas}
@@ -186,14 +189,15 @@ export default function Produtos() {
           resetarTags={resetarTags}
         />
 
-        <div className="main__listagem__pesquisa">
-          <input
-            type="text"
-            name="produto-search"
+        <InputGroup>
+          <Form.Control
+            size="lg"
             placeholder="Digite o nome de um produto..."
           />
-          <SearchIcon />
-        </div>
+          <Button>
+            <SearchIcon />
+          </Button>
+        </InputGroup>
 
         <div className="main__listagem__produtos">
           <ProdutoCard />
