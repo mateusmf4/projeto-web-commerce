@@ -1,0 +1,48 @@
+main {
+  margin-top: 1em;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.main__info {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.main__actions {
+  display: none;
+}
+
+@media (width >= 768px) and (width < 992px) {
+  main {
+    align-items: center;
+  }
+
+  .main__carousel {
+    width: 500px;
+  }
+}
+
+@media (width >= 992px) {
+  main {
+    flex-direction: row;
+  }
+
+  .main__carousel {
+    flex: 4;
+    max-width: 450px;
+    max-height: 450px;
+    aspect-ratio: 1;
+  }
+
+  .main__info {
+    flex: 3;
+  }
+
+  .main__actions {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,17 +1,8 @@
 import { SearchIcon } from "lucide-react";
 import "./produtos.css";
 import { CheckIcon, ChevronRightIcon } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
-import {
-  Breadcrumb,
-  Button,
-  Card,
-  Collapse,
-  Form,
-  FormControl,
-  InputGroup,
-  Modal,
-} from "react-bootstrap";
+import { useMemo, useState } from "react";
+import { Button, Card, Form, InputGroup } from "react-bootstrap";
 
 function Categoria({
   nome,
@@ -101,7 +92,7 @@ function ProdutoCard() {
       />
       <Card.Body>
         <Card.Title>
-          <a href="/produtos" className="stretched-link produtoCard__title">
+          <a href="/produtos/123" className="stretched-link produtoCard__title">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           </a>
         </Card.Title>
@@ -150,7 +141,7 @@ export default function Produtos() {
 
   return (
     <main>
-      <div className="main__sidebar">
+      <div className="main__sidebar border rounded">
         <h2>Categorias</h2>
 
         <div className="main__sidebar__categorias">

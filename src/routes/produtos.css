@@ -1,12 +1,10 @@
 main {
-  padding-top: 1em;
+  margin-top: 1em;
 
   display: flex;
   gap: 1em;
 
   .main__sidebar {
-    border: var(--bs-border-width) solid var(--bs-border-color);
-    border-radius: var(--bs-border-radius);
     padding: 1em;
     min-width: 250px;
 
