@@ -1,0 +1,18 @@
+.carrinho {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.carrinho__checkout {
+  width: 400px;
+  height: 350px;
+  background-color: #F5F6F5;
+}
+
+.carrinho__btn {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
