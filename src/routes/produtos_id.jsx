@@ -1,4 +1,4 @@
-import { Button, Card, Carousel, Ratio } from "react-bootstrap";
+import { Button, Carousel, Ratio } from "react-bootstrap";
 import "./produtos_id.css";
 
 export default function Produto({ params }) {
