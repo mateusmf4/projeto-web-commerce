@@ -1,22 +1,18 @@
-import { Outlet, useLocation } from "react-router";
-import "./_layout.css";
 import { ShoppingCartIcon } from "lucide-react";
-import { Button, Container, Image, Nav, Navbar } from "react-bootstrap";
-import Logo from "../assets/logo.png";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { Link, Outlet, useLocation } from "react-router";
+import "./_layout.css";
+import LogoSvg from "../assets/logo.svg?react";
 
 export default function LayoutUsuario() {
   const location = useLocation();
 
   return (
     <>
-      <Navbar
-        collapseOnSelect
-        expand="lg"
-        className="bg-primary layout__navbar"
-      >
+      <Navbar collapseOnSelect expand="lg" className="bg-primary">
         <Container>
           <Navbar.Brand href="/">
-            <Image src={Logo} alt="Logotipo" />
+            <LogoSvg className="text-bg-primary" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse>
@@ -62,9 +58,28 @@ export default function LayoutUsuario() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container>
+
+      {/* Page content */}
+      <Container className="_layout__page-content-container">
         <Outlet />
       </Container>
+
+      {/* Page footer */}
+      <footer className="py-3 mt-4 border-top bg-body-tertiary">
+        <Container>
+          <div className="d-flex flex-column gap-3 flex-lg-row align-items-center justify-content-between">
+            <div className="d-flex align-items-center text-body-secondary gap-2">
+              <Link to="/" className="text-body-secondary lh-1">
+                <LogoSvg className="lh-1" />
+              </Link>
+              <span>&copy; 2025 Filipe & Mateus</span>
+            </div>
+            <Link to="/admin" className="text-body-secondary">
+              Painel Admin
+            </Link>
+          </div>
+        </Container>
+      </footer>
     </>
   );
 }
