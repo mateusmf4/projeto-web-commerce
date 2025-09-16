@@ -20,28 +20,34 @@ export default function LayoutUsuario() {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse>
-            <Nav className="me-auto">
-              <Nav.Link
-                active={location.pathname === "/"}
-                href="/"
-                className="text-bg-primary"
-              >
-                Home
-              </Nav.Link>
-              <Nav.Link
-                active={location.pathname === "/produtos"}
-                href="/produtos"
-                className="text-bg-primary"
-              >
-                Produtos
-              </Nav.Link>
-              <Nav.Link
-                active={location.pathname === "/contato"}
-                href="/contato"
-                className="text-bg-primary"
-              >
-                Contato
-              </Nav.Link>
+            <Nav className="me-auto" variant="underline">
+              <Nav.Item>
+                <Nav.Link
+                  active={location.pathname === "/"}
+                  href="/"
+                  className="text-bg-primary"
+                >
+                  Home
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  active={location.pathname === "/produtos"}
+                  href="/produtos"
+                  className="text-bg-primary"
+                >
+                  Produtos
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  active={location.pathname === "/contato"}
+                  href="/contato"
+                  className="text-bg-primary"
+                >
+                  Contato
+                </Nav.Link>
+              </Nav.Item>
             </Nav>
             <Button
               as="a"
