@@ -1,38 +1,54 @@
-import { Button, Card, CloseButton, Col, Form, Row } from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, CloseButton, Col, Form, Row } from 'react-bootstrap';
+import SeletorQtd from '../components/seletorQtd';
 import './carrinho.css';
 
-function prodsCar({ item, novaQtd, remover}) {
+function ProdsCar({ item, novaQtd, remover}) {
   return (
-    <Card className="produtos-carrinho">
-      <Card.Img
+    <div className="produtos-carrinho">
+      <img
         src="https://api.dicebear.com/9.x/shapes/svg?seed=2"
         className="produtos-carrinho__img"
       />
 
-      <Card.Body className="produtos-carrinho__conteudo">
-        <Card.Title> {item.nome} </Card.Title>
+      <div className="produtos-carrinho__conteudo">
+        <h6> {item.nome} </h6>
 
-        <Card.Text> R$ {item.preco.toFixed(2)} </Card.Text>
+        <p> R$ {item.preco.toFixed(2)} </p>
 
         {/* Provavelmente terá que ser alterado no futuro */}
-        <Form.Select
-          size="sm"
+        <SeletorQtd
           value={item.qtd}
-          onChange={(e) => novaQtd(item.id, e.target.value)}
-          className="produtos-carrinho__seletor"
-        >
-          {[1,2,3].map((x) => (
-            <option key={x} value={x}>{x}</option>
-          ))}
-        </Form.Select>
-      </Card.Body>
+          onChange={(q) => novaQtd(item.id, q)}
+          min={1}
+          max={3}
+        />
+      </div>
 
-      <CloseButton variant="outline-danger" onClick={() => remover(item.id)}/>
-    </Card>
+      <CloseButton className="produtos-carrinho__remover" onClick={() => remover(item.id)}/>
+    </div>
   )
 }
 
 export default function Carrinho() {
+
+  const [itens, setItens] = useState([
+    {id: 1, nome: "Produto 1", preco: 13, qtd: 1},
+    {id: 2, nome: "Produto 2", preco: 7.99, qtd: 1},
+    {id: 3, nome: "Produto 3", preco: 25.89, qtd: 1}
+  ]);
+
+  const remover = (id) => setItens(itens.filter((item) => item.id !== id));
+
+  const novaQtd = (id, qtd) => setItens(itens.map((item) =>
+    item.id === id ? {...item, qtd: Number(qtd)} : item
+  ));
+
+  const subtotal = itens.reduce((acc, item) => acc + item.preco * item.qtd, 0);
+  const frete = 35;
+  const impostos = 20;
+  const total = subtotal + frete + impostos;
+
   return (
     <main>
       <div className="carrinho">
@@ -40,31 +56,33 @@ export default function Carrinho() {
           <h1>Carrinho</h1>
 
           <div className="carrinho__listagem__produtos">
-            {/* produtos aqui */}
+            {itens.map((item) => (
+              <ProdsCar key={item.id} item={item} novaQtd={novaQtd} remover={remover} />
+            ))}
           </div>
         </div>
 
         <div className="carrinho__checkout border p-3">
           <Row>
             <Col>Subtotal:</Col>
-            <Col className="text-end">R$ 35,00</Col>
+            <Col className="text-end">R$ {subtotal.toFixed(2)}</Col>
           </Row>
 
           <Row>
             <Col>Frete:</Col>
-            <Col className="text-end">R$ 35,00</Col>
+            <Col className="text-end">R$ {frete.toFixed(2)}</Col>
           </Row>
 
           <Row>
             <Col>Impostos:</Col>
-            <Col className="text-end">R$ 35,00</Col>
+            <Col className="text-end">R$ {impostos.toFixed(2)}</Col>
           </Row>
 
           <hr />
 
           <Row>
             <Col>Total:</Col>
-            <Col className="text-end">R$ 35,00</Col>
+            <Col className="text-end">R$ {total.toFixed(2)}</Col>
           </Row>
 
           <Button className="carrinho__btn">Checkout</Button>

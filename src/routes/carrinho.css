@@ -4,8 +4,29 @@
   margin-top: 50px;
 }
 
-.carrinho__listagem__produtos {
+.produtos-carrinho {
+  display: flex;
+  width: 550px;
+  background-color: #F5F6F5;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
 
+.produtos-carrinho__img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  background: #ddd;
+  margin-right: 10px;
+}
+
+.produtos-carrinho__conteudo {
+  flex: 1;
+}
+
+.produtos-carrinho__remover {
+  flex-direction: column;
 }
 
 .carrinho__checkout {
