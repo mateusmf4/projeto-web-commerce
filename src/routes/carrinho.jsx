@@ -5,7 +5,7 @@ import './carrinho.css';
 
 function ProdsCar({ item, novaQtd, remover}) {
   return (
-    <div className="produtos-carrinho">
+    <div className="produtos-carrinho border">
       <img
         src="https://api.dicebear.com/9.x/shapes/svg?seed=2"
         className="produtos-carrinho__img"

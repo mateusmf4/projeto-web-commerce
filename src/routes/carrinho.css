@@ -1,12 +1,16 @@
 .carrinho {
   display: flex;
   justify-content: space-between;
-  margin-top: 50px;
+  margin-top: 30px;
+}
+
+.carrinho__listagem__produtos {
+  width: 700px;
 }
 
 .produtos-carrinho {
   display: flex;
-  width: 550px;
+  width: 100%;
   background-color: #F5F6F5;
   padding: 10px;
   margin-bottom: 10px;
@@ -30,6 +34,7 @@
 }
 
 .carrinho__checkout {
+  margin-top: 56px;
   width: 400px;
   height: 350px;
   background-color: #F5F6F5;
