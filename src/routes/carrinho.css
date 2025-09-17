@@ -4,13 +4,13 @@
   margin-top: 30px;
 }
 
-.carrinho__listagem__produtos {
-  width: 700px;
+.carrinho__listagem {
+  flex: 1;
 }
 
 .produtos-carrinho {
   display: flex;
-  width: 100%;
+  width: 95%;
   background-color: #F5F6F5;
   padding: 10px;
   margin-bottom: 10px;
