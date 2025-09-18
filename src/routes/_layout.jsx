@@ -2,7 +2,7 @@ import { ShoppingCartIcon } from "lucide-react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link, Outlet, useLocation } from "react-router";
 import "./_layout.css";
-import LogoSvg from "../assets/logo.svg?react";
+import LogoSvg from "@/assets/logo.svg?react";
 
 export default function LayoutUsuario() {
   const location = useLocation();

@@ -1,6 +1,6 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, Outlet, useLocation } from "react-router";
-import LogoSvg from "../../assets/logo.svg?react";
+import LogoSvg from "@/assets/logo.svg?react";
 import "./_layout.css";
 
 export default function LayoutUsuario() {
