@@ -35,7 +35,8 @@ export default function Carrinho() {
   const [itens, setItens] = useState([
     {id: 1, nome: "Produto 1", preco: 13, qtd: 1},
     {id: 2, nome: "Produto 2", preco: 7.99, qtd: 1},
-    {id: 3, nome: "Produto 3", preco: 25.89, qtd: 1}
+    {id: 3, nome: "Produto 3", preco: 25.89, qtd: 1},
+    {id: 4, nome: "Produto 4", preco: 23.89, qtd: 1}
   ]);
 
   const remover = (id) => setItens(itens.filter((item) => item.id !== id));
@@ -62,7 +63,7 @@ export default function Carrinho() {
           </div>
         </div>
 
-        <div className="carrinho__checkout border p-3">
+        <div className="carrinho__checkout d-none d-lg-block border p-3">
           <Row>
             <Col>Subtotal:</Col>
             <Col className="text-end">R$ {subtotal.toFixed(2)}</Col>
@@ -88,7 +89,35 @@ export default function Carrinho() {
           <Button className="carrinho__btn">Checkout</Button>
 
         </div>
+        {/* Checkout no final da pagina no mobile.. */}
+        <div className="d-lg-none" style={{ height: "52rem" }}></div>
+        <div className="d-lg-none d-flex flex-column fixed-bottom bg-body p-4 border-top">
+          <Row>
+              <Col>Subtotal:</Col>
+              <Col className="text-end">R$ {subtotal.toFixed(2)}</Col>
+            </Row>
+
+            <Row>
+              <Col>Frete:</Col>
+              <Col className="text-end">R$ {frete.toFixed(2)}</Col>
+            </Row>
+
+            <Row>
+              <Col>Impostos:</Col>
+              <Col className="text-end">R$ {impostos.toFixed(2)}</Col>
+            </Row>
+
+            <hr />
+
+            <Row>
+              <Col>Total:</Col>
+              <Col className="text-end">R$ {total.toFixed(2)}</Col>
+            </Row>
+
+            <Button className="carrinho__btn">Checkout</Button>
+        </div>
       </div>
+
     </main>
   );
 }
