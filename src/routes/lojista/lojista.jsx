@@ -9,7 +9,8 @@ import {
   Table,
 } from "react-bootstrap";
 import "./lojista.css";
-import { useEffect, useMemo, useState } from "react";
+import { PlusIcon, XCircleIcon } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 function formatPrice(price) {
@@ -20,7 +21,7 @@ export default function Admin() {
   const [produtos, setProdutos] = useState([
     {
       id: 1,
-      img: "https://api.dicebear.com/9.x/shapes/svg?seed=2",
+      images: ["https://api.dicebear.com/9.x/shapes/svg?seed=2"],
       nome: "Produto 1",
       preco: 12.5,
       estoque: 3,
@@ -28,7 +29,7 @@ export default function Admin() {
     },
     {
       id: 2,
-      img: "https://api.dicebear.com/9.x/shapes/svg?seed=3",
+      images: ["https://api.dicebear.com/9.x/shapes/svg?seed=3"],
       nome: "Produto 2",
       preco: 9.99,
       estoque: 10,
@@ -36,7 +37,7 @@ export default function Admin() {
     },
     {
       id: 13,
-      img: "https://api.dicebear.com/9.x/shapes/svg?seed=4",
+      images: ["https://api.dicebear.com/9.x/shapes/svg?seed=4"],
       nome: "Produto Algum",
       preco: 25.5,
       estoque: 0,
@@ -44,7 +45,7 @@ export default function Admin() {
     },
     {
       id: 25,
-      img: "https://api.dicebear.com/9.x/shapes/svg?seed=5",
+      images: ["https://api.dicebear.com/9.x/shapes/svg?seed=5"],
       nome: "Produto 25",
       preco: 10.0,
       estoque: 50,
@@ -52,7 +53,7 @@ export default function Admin() {
     },
     {
       id: 32,
-      img: "https://api.dicebear.com/9.x/shapes/svg?seed=6",
+      images: ["https://api.dicebear.com/9.x/shapes/svg?seed=6"],
       nome: "Arroz salgado com um nome muito longo 150g",
       preco: 25.5,
       estoque: 100,
@@ -75,12 +76,20 @@ export default function Admin() {
   return (
     <>
       <main>
-        <InputGroup>
-          <Form.Control placeholder="Digite o nome de um produto..." />
-          <Button>
-            <SearchIcon />
+        <div className="d-flex gap-3">
+          <InputGroup>
+            <Form.Control placeholder="Digite o nome de um produto..." />
+            <Button>
+              <SearchIcon />
+            </Button>
+          </InputGroup>
+
+          <Button className="d-flex align-items-center justify-content-center">
+            <PlusIcon />
+            Criar
           </Button>
-        </InputGroup>
+        </div>
+
         <Table striped bordered hover responsive className="align-middle">
           <thead>
             <tr>
@@ -97,10 +106,10 @@ export default function Admin() {
                 <td className="text-center">{produto.id}</td>
                 <td>
                   <img
-                    style={{ height: "3rem" }}
+                    style={{ height: "3rem", aspectRatio: "1" }}
                     alt="foto do produto"
-                    className="img-thumbnail me-2"
-                    src={produto.img}
+                    className="img-thumbnail me-2 object-fit-contain"
+                    src={produto.images[0]}
                   />
                   {produto.nome}
                 </td>
@@ -147,10 +156,22 @@ export default function Admin() {
   );
 }
 
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+}
+
 function ProdutoEditModal({ produto, saveProduto, show, onClose }) {
   const onSave = (data) => {
-    console.log(data);
-    saveProduto({ ...produto, ...data });
+    if (!images.length) {
+      setImageError("Selecione pelo menos uma imagem");
+      return;
+    }
+    saveProduto({ ...produto, ...data, images: images.map(([img]) => img) });
     onClose();
   };
 
@@ -167,8 +188,40 @@ function ProdutoEditModal({ produto, saveProduto, show, onClose }) {
     defaultValues,
   });
 
+  const [images, setImages] = useState([]);
+  const imageInputRef = useRef();
+  const [imageError, setImageError] = useState(null);
+
+  const adicionarImagem = () => {
+    if (imageInputRef.current) {
+      imageInputRef.current.click();
+    }
+  };
+  const onImageChange = async (e) => {
+    setImageError(null);
+    if (e.target.files.length) {
+      const newImages = [];
+      for (const file of e.target.files) {
+        if (!file.type.startsWith("image/")) {
+          setImageError("Selecione somente imagens válidas");
+          continue;
+        }
+        newImages.push([await getBase64(file), Math.random()]);
+      }
+      e.target.value = null;
+      setImages((prev) => [...prev, ...newImages]);
+    }
+  };
+  const deleteImage = (index) => {
+    setImages(images.filter((_, i) => index !== i));
+  };
+
   useEffect(() => {
-    if (produto) reset();
+    if (produto) {
+      reset();
+      setImageError(null);
+      setImages(produto.images.map((x) => [x, Math.random()]));
+    }
   }, [produto, reset]);
 
   return (
@@ -182,6 +235,39 @@ function ProdutoEditModal({ produto, saveProduto, show, onClose }) {
           {/* Agrupar para que o botão de salvar faça o submit do form */}
           <Form onSubmit={handleSubmit(onSave)}>
             <Modal.Body>
+              <Form.Group>
+                <Form.Label>Imagens</Form.Label>
+                <input
+                  type="file"
+                  className="d-none"
+                  multiple
+                  ref={imageInputRef}
+                  onChange={onImageChange}
+                />
+                <div className="image-list">
+                  {images.map(([img, key], i) => (
+                    <div key={key} className="image-list__image">
+                      <img src={img} alt="imagem do produto" />
+                      <button type="button" onClick={() => deleteImage(i)}>
+                        <XCircleIcon />
+                      </button>
+                    </div>
+                  ))}
+                  <Button
+                    className="image-list__new"
+                    variant="outline-secondary"
+                    onClick={adicionarImagem}
+                  >
+                    <PlusIcon />
+                  </Button>
+                </div>
+                {imageError && (
+                  <Form.Control.Feedback type="invalid" className="d-block">
+                    {imageError}
+                  </Form.Control.Feedback>
+                )}
+              </Form.Group>
+
               <Form.Group controlId="ipt-nome">
                 <Form.Label>Nome</Form.Label>
                 <Form.Control
