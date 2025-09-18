@@ -2,12 +2,9 @@ import { EditIcon, SearchIcon, XSquareIcon } from "lucide-react";
 import {
   Button,
   Col,
-  Container,
   Form,
   InputGroup,
   Modal,
-  Nav,
-  Navbar,
   Row,
   Table,
 } from "react-bootstrap";
@@ -77,86 +74,61 @@ export default function Admin() {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" className="bg-primary">
-        <Container>
-          <Navbar.Brand href="/lojista">
-            <h3 className="m-0 text-bg-primary pb-1">Gerenciamento</h3>
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse>
-            <Nav className="me-auto" variant="underline">
-              <Nav.Item>
-                <Nav.Link href="/produtos" className="text-bg-primary">
-                  Produtos
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="/produtos" className="text-bg-primary">
-                  Pedidos
-                </Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-
-      <Container>
-        <main>
-          <InputGroup>
-            <Form.Control placeholder="Digite o nome de um produto..." />
-            <Button>
-              <SearchIcon />
-            </Button>
-          </InputGroup>
-          <Table striped bordered hover responsive className="align-middle">
-            <thead>
-              <tr>
-                <th className="col-1 text-center">#</th>
-                <th style={{ minWidth: "20rem" }}>Nome</th>
-                <th className="col-1 text-center">Preço</th>
-                <th className="col-1 text-center">Estoque</th>
-                <th className="col-1 text-center">Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {produtos.map((produto) => (
-                <tr key={produto.id}>
-                  <td className="text-center">{produto.id}</td>
-                  <td>
-                    <img
-                      style={{ height: "3rem" }}
-                      alt="foto do produto"
-                      className="img-thumbnail me-2"
-                      src={produto.img}
-                    />
-                    {produto.nome}
-                  </td>
-                  <td className="text-center text-nowrap">
-                    {formatPrice(produto.preco)}
-                  </td>
-                  <td
-                    className={`text-center ${produto.estoque ? "" : "fw-bold text-danger"}`}
+      <main>
+        <InputGroup>
+          <Form.Control placeholder="Digite o nome de um produto..." />
+          <Button>
+            <SearchIcon />
+          </Button>
+        </InputGroup>
+        <Table striped bordered hover responsive className="align-middle">
+          <thead>
+            <tr>
+              <th className="col-1 text-center">#</th>
+              <th style={{ minWidth: "20rem" }}>Nome</th>
+              <th className="col-1 text-center">Preço</th>
+              <th className="col-1 text-center">Estoque</th>
+              <th className="col-1 text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {produtos.map((produto) => (
+              <tr key={produto.id}>
+                <td className="text-center">{produto.id}</td>
+                <td>
+                  <img
+                    style={{ height: "3rem" }}
+                    alt="foto do produto"
+                    className="img-thumbnail me-2"
+                    src={produto.img}
+                  />
+                  {produto.nome}
+                </td>
+                <td className="text-center text-nowrap">
+                  {formatPrice(produto.preco)}
+                </td>
+                <td
+                  className={`text-center ${produto.estoque ? "" : "fw-bold text-danger"}`}
+                >
+                  {produto.estoque}
+                </td>
+                <td className="text-center">
+                  <Button size="sm" onClick={() => setEditProduto(produto)}>
+                    <EditIcon />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="danger"
+                    onClick={() => setDelProduto(produto)}
                   >
-                    {produto.estoque}
-                  </td>
-                  <td className="text-center">
-                    <Button size="sm" onClick={() => setEditProduto(produto)}>
-                      <EditIcon />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="danger"
-                      onClick={() => setDelProduto(produto)}
-                    >
-                      <XSquareIcon />
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </main>
-      </Container>
+                    <XSquareIcon />
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </main>
 
       <ProdutoEditModal
         show={editProduto != null}
@@ -318,7 +290,7 @@ function ConfirmarDeletarModal({ show, nome, onClose, onDelete }) {
     onClose();
   };
   return (
-    <Modal show={show} onHide={onClose}>
+    <Modal centered show={show} onHide={onClose}>
       <Modal.Header closeButton>
         <Modal.Title>Confirmar</Modal.Title>
       </Modal.Header>

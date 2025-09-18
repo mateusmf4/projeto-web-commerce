@@ -1,4 +1,4 @@
-import { index, layout, route } from "@react-router/dev/routes";
+import { index, layout, prefix, route } from "@react-router/dev/routes";
 
 export default [
   layout("routes/_layout.jsx", [
@@ -8,5 +8,8 @@ export default [
     route("contato", "routes/contato.jsx"),
     route("carrinho", "routes/carrinho.jsx"),
   ]),
-  route("lojista", "routes/lojista.jsx"),
+
+  ...prefix("lojista", [
+    layout("routes/lojista/_layout.jsx", [index("routes/lojista/lojista.jsx")]),
+  ]),
 ];
