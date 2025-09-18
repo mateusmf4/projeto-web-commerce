@@ -74,9 +74,9 @@ export default function LayoutUsuario() {
               </Link>
               <span>&copy; 2025 Filipe & Mateus</span>
             </div>
-            <Link to="/admin" className="text-body-secondary">
-              Painel Admin
-            </Link>
+            <a href="/lojista" className="text-body-secondary">
+              Painel Lojista
+            </a>
           </div>
         </Container>
       </footer>

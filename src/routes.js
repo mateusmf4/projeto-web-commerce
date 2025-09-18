@@ -8,4 +8,5 @@ export default [
     route("contato", "routes/contato.jsx"),
     route("carrinho", "routes/carrinho.jsx"),
   ]),
+  route("lojista", "routes/lojista.jsx"),
 ];
