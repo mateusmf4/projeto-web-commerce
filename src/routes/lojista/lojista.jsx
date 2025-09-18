@@ -73,6 +73,29 @@ export default function Admin() {
     setProdutos(produtos.filter((x) => x.id !== produto.id));
   };
 
+  const [novoProduto, setNovoProduto] = useState(null);
+  const [idCounter, setIdCounter] = useState(100);
+  const abrirCriarProduto = () => {
+    setNovoProduto({
+      id: "",
+      nome: "",
+      descricao: "",
+      images: [],
+      estoque: "",
+      preco: "",
+    });
+  };
+  const criarProduto = (produto) => {
+    setProdutos([
+      ...produtos,
+      {
+        ...produto,
+        id: idCounter,
+      },
+    ]);
+    setIdCounter(idCounter + 1);
+  };
+
   return (
     <>
       <main>
@@ -84,7 +107,10 @@ export default function Admin() {
             </Button>
           </InputGroup>
 
-          <Button className="d-flex align-items-center justify-content-center">
+          <Button
+            className="d-flex align-items-center justify-content-center"
+            onClick={abrirCriarProduto}
+          >
             <PlusIcon />
             Criar
           </Button>
@@ -144,6 +170,14 @@ export default function Admin() {
         produto={editProduto}
         saveProduto={saveProduto}
         onClose={() => setEditProduto(null)}
+        isEdit
+      />
+
+      <ProdutoEditModal
+        show={novoProduto != null}
+        produto={novoProduto}
+        saveProduto={criarProduto}
+        onClose={() => setNovoProduto(null)}
       />
 
       <ConfirmarDeletarModal
@@ -165,7 +199,7 @@ function getBase64(file) {
   });
 }
 
-function ProdutoEditModal({ produto, saveProduto, show, onClose }) {
+function ProdutoEditModal({ produto, saveProduto, show, onClose, isEdit }) {
   const onSave = (data) => {
     if (!images.length) {
       setImageError("Selecione pelo menos uma imagem");
@@ -229,7 +263,7 @@ function ProdutoEditModal({ produto, saveProduto, show, onClose }) {
       {show && (
         <>
           <Modal.Header>
-            <Modal.Title>Editar Produto</Modal.Title>
+            <Modal.Title>{isEdit ? "Editar" : "Criar"} Produto</Modal.Title>
           </Modal.Header>
 
           {/* Agrupar para que o botão de salvar faça o submit do form */}
