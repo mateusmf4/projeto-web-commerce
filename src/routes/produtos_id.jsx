@@ -1,6 +1,10 @@
 import { Button, Carousel, Ratio } from "react-bootstrap";
 import "./produtos_id.css";
 
+export function meta() {
+  return [{ title: "Produto ? | éComércio" }];
+}
+
 export default function Produto({ params }) {
   return (
     <main>

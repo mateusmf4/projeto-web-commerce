@@ -5,6 +5,10 @@ import LogoSvg from "@/assets/logo.svg?react";
 import "./login.css";
 import api from "@/services/api";
 
+export function meta() {
+  return [{ title: "Login | éComércio" }];
+}
+
 export default function Login() {
   const {
     handleSubmit,

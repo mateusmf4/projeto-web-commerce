@@ -3,6 +3,10 @@ import { Outlet, useLocation } from "react-router";
 import "./_layout.css";
 import Footer from "@/components/Footer";
 
+export function meta() {
+  return [{ title: "Painel Lojista | éComércio" }];
+}
+
 export default function LayoutUsuario() {
   const location = useLocation();
 

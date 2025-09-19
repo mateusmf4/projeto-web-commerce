@@ -4,6 +4,10 @@ import { CheckIcon, ChevronRightIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Button, Card, Form, InputGroup } from "react-bootstrap";
 
+export function meta() {
+  return [{ title: "Produtos | éComércio" }];
+}
+
 function Categoria({
   nome,
   tags,

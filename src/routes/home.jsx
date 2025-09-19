@@ -1,5 +1,9 @@
 import { Button, Col, Row } from "react-bootstrap";
 
+export function meta() {
+  return [{ title: "Home | éComércio" }];
+}
+
 export default function Home() {
   return (
     <main>
