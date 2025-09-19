@@ -1,0 +1,51 @@
+main {
+  margin-top: 1em;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+
+  .image-list__image,
+  .image-list__new {
+    aspect-ratio: 1;
+    width: 5rem;
+
+    overflow: hidden;
+    border-radius: var(--bs-border-radius);
+    border: var(--bs-border-width) solid var(--bs-secondary-border-subtle);
+
+    position: relative;
+  }
+
+  .image-list__image {
+    img {
+      aspect-ratio: inherit;
+      width: inherit;
+      object-fit: contain;
+    }
+
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0;
+      border: 0;
+      background: 0;
+
+      display: flex;
+      opacity: 50%;
+
+      transition: opacity 200ms;
+
+      &:hover {
+        opacity: 100%;
+      }
+    }
+  }
+}

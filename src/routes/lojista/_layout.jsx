@@ -1,8 +1,7 @@
-import { ShoppingCartIcon } from "lucide-react";
-import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, Outlet, useLocation } from "react-router";
-import "./_layout.css";
 import LogoSvg from "@/assets/logo.svg?react";
+import "./_layout.css";
 
 export default function LayoutUsuario() {
   const location = useLocation();
@@ -11,25 +10,16 @@ export default function LayoutUsuario() {
     <>
       <Navbar collapseOnSelect expand="lg" className="bg-primary">
         <Container>
-          <Navbar.Brand href="/">
-            <LogoSvg className="text-bg-primary" />
+          <Navbar.Brand href="/lojista">
+            <h3 className="m-0 text-bg-primary pb-1">Gerenciamento</h3>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse>
             <Nav className="me-auto" variant="underline">
               <Nav.Item>
                 <Nav.Link
-                  active={location.pathname === "/"}
-                  href="/"
-                  className="text-bg-primary"
-                >
-                  Home
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link
-                  active={location.pathname === "/produtos"}
-                  href="/produtos"
+                  href="/lojista"
+                  active={location.pathname === "/lojista"}
                   className="text-bg-primary"
                 >
                   Produtos
@@ -37,24 +27,14 @@ export default function LayoutUsuario() {
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link
-                  active={location.pathname === "/contato"}
-                  href="/contato"
+                  href="/lojista/pedidos"
+                  active={location.pathname === "/lojista/pedidos"}
                   className="text-bg-primary"
                 >
-                  Contato
+                  Pedidos
                 </Nav.Link>
               </Nav.Item>
             </Nav>
-            <Button
-              as="a"
-              href="/carrinho"
-              style={{
-                "--bs-btn-padding-y": ".4rem",
-                "--bs-btn-padding-x": ".5rem",
-              }}
-            >
-              <ShoppingCartIcon />
-            </Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>
