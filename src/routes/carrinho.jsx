@@ -94,7 +94,7 @@ export default function Carrinho() {
             <Col className="text-end">R$ {total.toFixed(2)}</Col>
           </Row>
 
-          <Button className="carrinho__btn">Checkout</Button>
+          <Button className="carrinho__btn" href="/pagamento">Checkout</Button>
         </div>
       </div>
       {/* Checkout no final da pagina no mobile.. */}
@@ -122,7 +122,7 @@ export default function Carrinho() {
           <Col className="text-end">R$ {total.toFixed(2)}</Col>
         </Row>
 
-        <Button className="carrinho__btn">Checkout</Button>
+        <Button className="carrinho__btn" href="/pagamento">Checkout</Button>
       </div>
     </main>
   );
