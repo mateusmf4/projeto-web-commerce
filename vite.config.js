@@ -10,5 +10,4 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/projeto-web-commerce/",
 });
