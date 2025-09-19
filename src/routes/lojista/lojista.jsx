@@ -6,60 +6,47 @@ import {
   InputGroup,
   Modal,
   Row,
+  Spinner,
   Table,
 } from "react-bootstrap";
 import "./lojista.css";
 import { PlusIcon, XCircleIcon } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDebouncedCallback } from "use-debounce";
+import api from "@/services/api";
 
 function formatPrice(price) {
   return `R$ ${price.toFixed(2)}`;
 }
 
 export default function Admin() {
-  const [produtos, setProdutos] = useState([
-    {
-      id: 1,
-      images: ["https://api.dicebear.com/9.x/shapes/svg?seed=2"],
-      nome: "Produto 1",
-      preco: 12.5,
-      estoque: 3,
-      descricao: "lorem lorem lorem!!",
-    },
-    {
-      id: 2,
-      images: ["https://api.dicebear.com/9.x/shapes/svg?seed=3"],
-      nome: "Produto 2",
-      preco: 9.99,
-      estoque: 10,
-      descricao: "lorem lorem lorem!!",
-    },
-    {
-      id: 13,
-      images: ["https://api.dicebear.com/9.x/shapes/svg?seed=4"],
-      nome: "Produto Algum",
-      preco: 25.5,
-      estoque: 0,
-      descricao: "lorem lorem lorem!!",
-    },
-    {
-      id: 25,
-      images: ["https://api.dicebear.com/9.x/shapes/svg?seed=5"],
-      nome: "Produto 25",
-      preco: 10.0,
-      estoque: 50,
-      descricao: "lorem lorem lorem!!",
-    },
-    {
-      id: 32,
-      images: ["https://api.dicebear.com/9.x/shapes/svg?seed=6"],
-      nome: "Arroz salgado com um nome muito longo 150g",
-      preco: 25.5,
-      estoque: 100,
-      descricao: "lorem lorem lorem!!",
-    },
-  ]);
+  const [produtos, setProdutos] = useState([]);
+  const [loadingProdutos, setLoadingProdutos] = useState(false);
+
+  const [searchText, setSearchText] = useState("");
+  const searchInputRef = useRef(null);
+
+  useEffect(() => {
+    setLoadingProdutos(true);
+    api
+      .getAllProdutos({
+        search: searchText,
+      })
+      .then((produtos) => {
+        setProdutos(produtos);
+      })
+      .finally(() => {
+        setLoadingProdutos(false);
+      });
+  }, [searchText]);
+
+  const triggerPesquisa = () => {
+    if (searchInputRef.current) {
+      setSearchText(searchInputRef.current.value);
+    }
+  };
+  const triggerPesquisaDebounce = useDebouncedCallback(triggerPesquisa, 250);
 
   const [editProduto, setEditProduto] = useState(null);
   const saveProduto = (novoProduto) => {
@@ -83,6 +70,8 @@ export default function Admin() {
       images: [],
       estoque: "",
       preco: "",
+      categoria: "",
+      tags: [],
     });
   };
   const criarProduto = (produto) => {
@@ -101,8 +90,12 @@ export default function Admin() {
       <main>
         <div className="d-flex gap-3">
           <InputGroup>
-            <Form.Control placeholder="Digite o nome de um produto..." />
-            <Button>
+            <Form.Control
+              placeholder="Digite o nome de um produto..."
+              ref={searchInputRef}
+              onChange={triggerPesquisaDebounce}
+            />
+            <Button onClick={triggerPesquisa}>
               <SearchIcon />
             </Button>
           </InputGroup>
@@ -127,40 +120,48 @@ export default function Admin() {
             </tr>
           </thead>
           <tbody>
-            {produtos.map((produto) => (
-              <tr key={produto.id}>
-                <td className="text-center">{produto.id}</td>
-                <td>
-                  <img
-                    style={{ height: "3rem", aspectRatio: "1" }}
-                    alt="foto do produto"
-                    className="img-thumbnail me-2 object-fit-contain"
-                    src={produto.images[0]}
-                  />
-                  {produto.nome}
-                </td>
-                <td className="text-center text-nowrap">
-                  {formatPrice(produto.preco)}
-                </td>
-                <td
-                  className={`text-center ${produto.estoque ? "" : "fw-bold text-danger"}`}
-                >
-                  {produto.estoque}
-                </td>
-                <td className="text-center">
-                  <Button size="sm" onClick={() => setEditProduto(produto)}>
-                    <EditIcon />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="danger"
-                    onClick={() => setDelProduto(produto)}
-                  >
-                    <XSquareIcon />
-                  </Button>
+            {loadingProdutos && (
+              <tr>
+                <td colSpan={5} className="text-center">
+                  <Spinner className="text-secondary" />
                 </td>
               </tr>
-            ))}
+            )}
+            {!loadingProdutos &&
+              produtos.map((produto) => (
+                <tr key={produto.id}>
+                  <td className="text-center">{produto.id}</td>
+                  <td>
+                    <img
+                      style={{ height: "3rem", aspectRatio: "1" }}
+                      alt="foto do produto"
+                      className="img-thumbnail me-2 object-fit-contain"
+                      src={produto.images[0]}
+                    />
+                    {produto.nome}
+                  </td>
+                  <td className="text-center text-nowrap">
+                    {formatPrice(produto.preco)}
+                  </td>
+                  <td
+                    className={`text-center ${produto.estoque ? "" : "fw-bold text-danger"}`}
+                  >
+                    {produto.estoque}
+                  </td>
+                  <td className="text-center">
+                    <Button size="sm" onClick={() => setEditProduto(produto)}>
+                      <EditIcon />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="danger"
+                      onClick={() => setDelProduto(produto)}
+                    >
+                      <XSquareIcon />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
       </main>
@@ -385,6 +386,36 @@ function ProdutoEditModal({ produto, saveProduto, show, onClose, isEdit }) {
                       {errors.estoque.message}
                     </Form.Control.Feedback>
                   )}
+                </Form.Group>
+              </Row>
+
+              <Row xs={1} lg={2}>
+                <Form.Group as={Col} controlId="ipt-categoria">
+                  <Form.Label>Categoria</Form.Label>
+                  <Form.Select
+                    defaultValue={produto.categoria}
+                    isInvalid={errors.categoria}
+                    {...register("categoria", {
+                      required: "Escolha uma categoria",
+                    })}
+                  >
+                    <option value="" disabled>
+                      Escolha uma categoria
+                    </option>
+                    <option>Eletrodomésticos</option>
+                    <option>Informática</option>
+                    <option>TV e Video</option>
+                  </Form.Select>
+                  {errors.categoria && (
+                    <Form.Control.Feedback type="invalid">
+                      {errors.categoria.message}
+                    </Form.Control.Feedback>
+                  )}
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="ipt-tags">
+                  <Form.Label>Tags</Form.Label>
+                  <Form.Control type="text" placeholder="não sei" />
                 </Form.Group>
               </Row>
             </Modal.Body>
