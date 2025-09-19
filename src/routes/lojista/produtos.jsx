@@ -172,11 +172,16 @@ export default function LojistaProdutos() {
                     {produto.estoque}
                   </td>
                   <td className="text-center">
-                    <Button size="sm" onClick={() => setEditProduto(produto)}>
+                    <Button
+                      size="sm"
+                      className="p-1"
+                      onClick={() => setEditProduto(produto)}
+                    >
                       <EditIcon />
                     </Button>
                     <Button
                       size="sm"
+                      className="p-1"
                       variant="danger"
                       onClick={() => setDelProduto(produto)}
                     >

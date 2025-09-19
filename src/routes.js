@@ -12,6 +12,7 @@ export default [
   ...prefix("lojista", [
     layout("routes/lojista/_layout.jsx", [
       index("routes/lojista/produtos.jsx"),
+      route("pedidos", "routes/lojista/pedidos.jsx"),
     ]),
   ]),
 ];

@@ -109,5 +109,56 @@ export async function getAllProdutos(filter = {}) {
   return await mockReturn(result);
 }
 
-const api = { getAllProdutos };
+/**
+ * @typedef {{
+ *   id: number,
+ *   produtos: Produto[],
+ *   cliente: {
+ *     nome: string,
+ *     email: string,
+ *   },
+ *   status: "entregue" | "enviado" | "cancelado",
+ *   data: string,
+ * }} Pedido
+ * */
+
+/** @type {Pedido[]} */
+const PEDIDOS = [
+  {
+    id: 1,
+    produtos: [PRODUTOS[0]],
+    cliente: {
+      nome: "José Alberto",
+      email: "jose.alberto@example.com",
+    },
+    status: "entregue",
+    data: "10/02/2024",
+  },
+  {
+    id: 2,
+    produtos: [PRODUTOS[1], PRODUTOS[0]],
+    cliente: {
+      nome: "Demetrio Gomes",
+      email: "demetrio.g@example.com",
+    },
+    status: "enviado",
+    data: "15/08/2025",
+  },
+  {
+    id: 3,
+    produtos: [PRODUTOS[3], PRODUTOS[4]],
+    cliente: {
+      nome: "José Robert",
+      email: "jose.robert@example.com",
+    },
+    status: "cancelado",
+    data: "11/08/2025",
+  },
+];
+
+export async function getAllPedidos() {
+  return await mockReturn(PEDIDOS);
+}
+
+const api = Object.freeze({ getAllProdutos, getAllPedidos });
 export default api;
