@@ -24,8 +24,6 @@ jobs:
         run: pnpm install
 
       - name: Build site
-        env:
-          BASE_PATH: '/projeto-web-commerce'
         run: |
           pnpm run build
           touch build/client/.nojekyll
