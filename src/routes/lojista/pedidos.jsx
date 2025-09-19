@@ -1,3 +1,5 @@
+import { InfoIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import {
   Badge,
   Button,
@@ -8,10 +10,8 @@ import {
   Stack,
   Table,
 } from "react-bootstrap";
-import "./produtos.css";
-import { InfoIcon } from "lucide-react";
-import { useEffect, useState } from "react";
 import api from "@/services/api";
+import "./pedidos.css";
 
 export default function LojistaPedidos() {
   const [pedidos, setPedidos] = useState([]);

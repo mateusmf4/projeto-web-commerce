@@ -16,5 +16,9 @@ export default [
     ]),
   ]),
 
+  ...prefix("admin", [
+    layout("routes/admin/_layout.jsx", [index("routes/admin/index.jsx")]),
+  ]),
+
   route("login", "routes/login.jsx"),
 ];

@@ -178,5 +178,32 @@ export async function login(tipo, usuario, senha) {
   });
 }
 
-const api = Object.freeze({ getAllProdutos, getAllPedidos, login });
+export async function getAllLojistas() {
+  /**
+   * @type {{
+   *   users: {
+   *     id: number,
+   *     firstName: string,
+   *     lastName: string,
+   *     email: string,
+   *     age: number
+   *   }[],
+   *   total: number
+   * }}
+   */
+  const data = await (await fetch("https://dummyjson.com/users")).json();
+  return data.users.map((user) => ({
+    id: user.id,
+    nome: `${user.firstName} ${user.lastName}`,
+    email: user.email,
+    n_produtos: (user.age % 5) + 1,
+  }));
+}
+
+const api = Object.freeze({
+  getAllProdutos,
+  getAllPedidos,
+  login,
+  getAllLojistas,
+});
 export default api;
