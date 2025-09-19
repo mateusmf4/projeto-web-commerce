@@ -1,0 +1,52 @@
+body {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+.login__bg-pattern {
+  position: absolute;
+  inset: 0;
+
+  opacity: 10%;
+
+  --_bg-color: var(--bs-secondary-bg);
+  --_plus-color: var(--bs-primary);
+  background:
+    radial-gradient(
+      circle,
+      transparent 20%,
+      var(--_bg-color) 20%,
+      var(--_bg-color) 80%,
+      transparent 80%,
+      transparent
+    ),
+    radial-gradient(
+      circle,
+      transparent 20%,
+      var(--_bg-color) 20%,
+      var(--_bg-color) 80%,
+      transparent 80%,
+      transparent
+    )
+    25px 25px,
+    linear-gradient(var(--_plus-color) 2px, transparent 2px) 0 -1px,
+    linear-gradient(90deg, var(--_plus-color) 2px, var(--_bg-color) 2px) -1px 0;
+  background-size:
+    50px 50px,
+    50px 50px,
+    25px 25px,
+    25px 25px;
+}
+
+main {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__login-card {
+  max-width: 512px;
+}

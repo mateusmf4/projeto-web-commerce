@@ -15,4 +15,6 @@ export default [
       route("pedidos", "routes/lojista/pedidos.jsx"),
     ]),
   ]),
+
+  route("login", "routes/login.jsx"),
 ];
