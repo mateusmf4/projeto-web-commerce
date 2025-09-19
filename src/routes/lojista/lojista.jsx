@@ -2,6 +2,7 @@ import { EditIcon, SearchIcon, XSquareIcon } from "lucide-react";
 import {
   Button,
   Col,
+  FloatingLabel,
   Form,
   InputGroup,
   Modal,
@@ -26,12 +27,15 @@ export default function Admin() {
 
   const [searchText, setSearchText] = useState("");
   const searchInputRef = useRef(null);
+  const [selectedCategoria, setSelectedCategoria] = useState("");
+  const selectCategoriaRef = useRef(null);
 
   useEffect(() => {
     setLoadingProdutos(true);
     api
       .getAllProdutos({
         search: searchText,
+        categoria: selectedCategoria,
       })
       .then((produtos) => {
         setProdutos(produtos);
@@ -39,7 +43,7 @@ export default function Admin() {
       .finally(() => {
         setLoadingProdutos(false);
       });
-  }, [searchText]);
+  }, [searchText, selectedCategoria]);
 
   const triggerPesquisa = () => {
     if (searchInputRef.current) {
@@ -47,6 +51,12 @@ export default function Admin() {
     }
   };
   const triggerPesquisaDebounce = useDebouncedCallback(triggerPesquisa, 250);
+
+  const updateCategoria = () => {
+    if (selectCategoriaRef.current) {
+      setSelectedCategoria(selectCategoriaRef.current.value);
+    }
+  };
 
   const [editProduto, setEditProduto] = useState(null);
   const saveProduto = (novoProduto) => {
@@ -108,6 +118,19 @@ export default function Admin() {
             Criar
           </Button>
         </div>
+
+        <FloatingLabel label="Categoria">
+          <Form.Select
+            defaultValue=""
+            ref={selectCategoriaRef}
+            onChange={updateCategoria}
+          >
+            <option value="">Todos os produtos</option>
+            <option value="Eletrodomésticos">Eletrodomésticos</option>
+            <option value="Informática">Informática</option>
+            <option value="TV e Video">TV e Video</option>
+          </Form.Select>
+        </FloatingLabel>
 
         <Table striped bordered hover responsive className="align-middle">
           <thead>
