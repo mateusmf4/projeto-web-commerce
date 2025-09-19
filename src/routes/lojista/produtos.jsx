@@ -10,7 +10,7 @@ import {
   Spinner,
   Table,
 } from "react-bootstrap";
-import "./lojista.css";
+import "./produtos.css";
 import { PlusIcon, XCircleIcon } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -21,7 +21,7 @@ function formatPrice(price) {
   return `R$ ${price.toFixed(2)}`;
 }
 
-export default function Admin() {
+export default function LojistaProdutos() {
   const [produtos, setProdutos] = useState([]);
   const [loadingProdutos, setLoadingProdutos] = useState(false);
 

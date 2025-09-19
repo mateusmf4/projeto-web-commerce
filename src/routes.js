@@ -10,6 +10,8 @@ export default [
   ]),
 
   ...prefix("lojista", [
-    layout("routes/lojista/_layout.jsx", [index("routes/lojista/lojista.jsx")]),
+    layout("routes/lojista/_layout.jsx", [
+      index("routes/lojista/produtos.jsx"),
+    ]),
   ]),
 ];
