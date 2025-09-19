@@ -58,20 +58,17 @@ export default function Carrinho() {
 
   return (
     <main>
+      <h1>Carrinho</h1>
       <div className="carrinho">
         <div className="carrinho__listagem">
-          <h1>Carrinho</h1>
-
-          <div className="carrinho__listagem__produtos">
-            {itens.map((item) => (
-              <ProdsCar
-                key={item.id}
-                item={item}
-                novaQtd={novaQtd}
-                remover={remover}
-              />
-            ))}
-          </div>
+          {itens.map((item) => (
+            <ProdsCar
+              key={item.id}
+              item={item}
+              novaQtd={novaQtd}
+              remover={remover}
+            />
+          ))}
         </div>
 
         <div className="carrinho__checkout d-none d-lg-block border p-3">
@@ -99,33 +96,33 @@ export default function Carrinho() {
 
           <Button className="carrinho__btn">Checkout</Button>
         </div>
-        {/* Checkout no final da pagina no mobile.. */}
-        <div className="d-lg-none" style={{ height: "52rem" }}></div>
-        <div className="d-lg-none d-flex flex-column fixed-bottom bg-body p-4 border-top">
-          <Row>
-            <Col>Subtotal:</Col>
-            <Col className="text-end">R$ {subtotal.toFixed(2)}</Col>
-          </Row>
+      </div>
+      {/* Checkout no final da pagina no mobile.. */}
+      <div className="d-lg-none" style={{ height: "10rem" }}></div>
+      <div className="d-lg-none d-flex flex-column fixed-bottom bg-body p-4 border-top">
+        <Row>
+          <Col>Subtotal:</Col>
+          <Col className="text-end">R$ {subtotal.toFixed(2)}</Col>
+        </Row>
 
-          <Row>
-            <Col>Frete:</Col>
-            <Col className="text-end">R$ {frete.toFixed(2)}</Col>
-          </Row>
+        <Row>
+          <Col>Frete:</Col>
+          <Col className="text-end">R$ {frete.toFixed(2)}</Col>
+        </Row>
 
-          <Row>
-            <Col>Impostos:</Col>
-            <Col className="text-end">R$ {impostos.toFixed(2)}</Col>
-          </Row>
+        <Row>
+          <Col>Impostos:</Col>
+          <Col className="text-end">R$ {impostos.toFixed(2)}</Col>
+        </Row>
 
-          <hr />
+        <hr />
 
-          <Row>
-            <Col>Total:</Col>
-            <Col className="text-end">R$ {total.toFixed(2)}</Col>
-          </Row>
+        <Row>
+          <Col>Total:</Col>
+          <Col className="text-end">R$ {total.toFixed(2)}</Col>
+        </Row>
 
-          <Button className="carrinho__btn">Checkout</Button>
-        </div>
+        <Button className="carrinho__btn">Checkout</Button>
       </div>
     </main>
   );
