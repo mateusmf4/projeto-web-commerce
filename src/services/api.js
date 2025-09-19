@@ -160,5 +160,23 @@ export async function getAllPedidos() {
   return await mockReturn(PEDIDOS);
 }
 
-const api = Object.freeze({ getAllProdutos, getAllPedidos });
+/**
+ * @param {'lojista' | 'admin'} tipo
+ * @param {string} usuario
+ * @param {string} senha
+ */
+export async function login(tipo, usuario, senha) {
+  await sleep(1000 + Math.random() * 500);
+  if (usuario === senha) {
+    throw "Usuario e senha não podem ser iguais";
+  }
+
+  return await mockReturn({
+    nome: "Usuario Fulano",
+    email: "usuario@example.com",
+    tipo,
+  });
+}
+
+const api = Object.freeze({ getAllProdutos, getAllPedidos, login });
 export default api;

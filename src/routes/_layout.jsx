@@ -1,8 +1,9 @@
 import { ShoppingCartIcon } from "lucide-react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
-import { Link, Outlet, useLocation } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import "./_layout.css";
 import LogoSvg from "@/assets/logo.svg?react";
+import Footer from "@/components/Footer";
 
 export default function LayoutUsuario() {
   const location = useLocation();
@@ -65,21 +66,7 @@ export default function LayoutUsuario() {
       </Container>
 
       {/* Page footer */}
-      <footer className="py-3 mt-4 border-top bg-body-tertiary">
-        <Container>
-          <div className="d-flex flex-column gap-3 flex-lg-row align-items-center justify-content-between">
-            <div className="d-flex align-items-center text-body-secondary gap-2">
-              <Link to="/" className="text-body-secondary lh-1">
-                <LogoSvg className="lh-1" />
-              </Link>
-              <span>&copy; 2025 Filipe & Mateus</span>
-            </div>
-            <a href="/lojista" className="text-body-secondary">
-              Painel Lojista
-            </a>
-          </div>
-        </Container>
-      </footer>
+      <Footer />
     </>
   );
 }
