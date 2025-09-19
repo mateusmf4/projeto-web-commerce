@@ -9,7 +9,7 @@ export default function SeletorQtd({ value, onChange, min = 1, max = 3 }) {
   };
 
   return (
-    <div className="seletor-qtd" role="group" aria-label="Quantidade">
+    <fieldset className="seletor-qtd" aria-label="Quantidade">
       <button
         type="button"
         className="seletor-qtd__btn"
@@ -33,6 +33,6 @@ export default function SeletorQtd({ value, onChange, min = 1, max = 3 }) {
       >
         +
       </button>
-    </div>
+    </fieldset>
   );
 }

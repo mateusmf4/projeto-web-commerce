@@ -11,7 +11,7 @@
 .produtos-carrinho {
   display: flex;
   width: 95%;
-  background-color: #F5F6F5;
+  background-color: #f5f6f5;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 4px;
@@ -37,7 +37,7 @@
   margin-top: 56px;
   width: 400px;
   height: 350px;
-  background-color: #F5F6F5;
+  background-color: #f5f6f5;
 }
 
 .carrinho__btn {
