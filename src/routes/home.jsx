@@ -7,7 +7,7 @@ export default function Home() {
         <Col lg="6">
           <img
             src="https://images.unsplash.com/photo-1441123285228-1448e608f3d5?q=80&w=1170&auto=format"
-            class="d-block mx-lg-auto img-fluid rounded"
+            className="d-block mx-lg-auto img-fluid rounded"
             alt="Bootstrap Themes"
             width="700"
             height="500"
@@ -15,14 +15,14 @@ export default function Home() {
           />
         </Col>
         <Col lg="6">
-          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
+          <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">
             Tudo o que você imagina, em um só lugar.
           </h1>
-          <p class="lead">
+          <p className="lead">
             Uma plataforma simples, moderna e intuitiva para criar experiências
             de compra online incríveis.
           </p>
-          <div class="d-grid d-md-flex">
+          <div className="d-grid d-md-flex">
             <Button size="lg" href="/produtos">
               Ver Produtos
             </Button>
