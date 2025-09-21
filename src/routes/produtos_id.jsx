@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Carousel, Ratio, Spinner } from "react-bootstrap";
 import "./produtos_id.css";
-import { BadgeDollarSignIcon, ShoppingBasketIcon } from "lucide-react";
+import { ShoppingBasketIcon } from "lucide-react";
 import api from "@/services/api";
 import { formatPrice } from "@/services/utils";
 
@@ -78,6 +78,9 @@ export default function Produto({ params }) {
       <div className="main__info">
         <h1>{produto.nome}</h1>
         <h3>{formatPrice(produto.preco)}</h3>
+        <h6>
+          Vendido pela loja <i>{produto.loja}</i>
+        </h6>
         <p>{produto.descricao}</p>
       </div>
 
