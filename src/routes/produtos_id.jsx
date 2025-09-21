@@ -3,6 +3,7 @@ import { Button, Carousel, Ratio, Spinner } from "react-bootstrap";
 import "./produtos_id.css";
 import { ShoppingBasketIcon } from "lucide-react";
 import api from "@/services/api";
+import Carrinho from "@/services/carrinho";
 import { formatPrice } from "@/services/utils";
 
 export function meta() {
@@ -28,6 +29,7 @@ export default function Produto({ params }) {
   }, [params.id]);
 
   const comprarProduto = () => {
+    Carrinho.adicionarProduto(produto);
     window.location.href = "/carrinho";
   };
 

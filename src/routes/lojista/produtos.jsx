@@ -18,10 +18,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDebouncedCallback } from "use-debounce";
 import api from "@/services/api";
-
-function formatPrice(price) {
-  return `R$ ${price.toFixed(2)}`;
-}
+import { formatPrice } from "@/services/utils";
 
 export default function LojistaProdutos() {
   const [produtos, setProdutos] = useState([]);
