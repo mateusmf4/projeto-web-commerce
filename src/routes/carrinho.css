@@ -21,15 +21,17 @@ main {
   display: flex;
   background-color: #f5f6f5;
   padding: 10px;
-  border-radius: 4px;
+  border-radius: var(--bs-border-radius);
 }
 
 .produtos-carrinho__img {
   width: 100px;
   height: 100px;
-  object-fit: cover;
-  background: #ddd;
-  margin-right: 10px;
+  object-fit: contain;
+  background: white;
+  margin-right: 1em;
+
+  border-radius: var(--bs-border-radius);
 }
 
 .produtos-carrinho__conteudo {
@@ -44,6 +46,8 @@ main {
   flex: 1;
   max-width: 400px;
   background-color: #f5f6f5;
+
+  border-radius: var(--bs-border-radius);
 }
 
 .carrinho__btn {
