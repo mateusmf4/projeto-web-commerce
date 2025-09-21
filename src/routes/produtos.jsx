@@ -1,8 +1,11 @@
 import { SearchIcon } from "lucide-react";
 import "./produtos.css";
 import { CheckIcon, ChevronRightIcon } from "lucide-react";
-import { useMemo, useState } from "react";
-import { Button, Card, Form, InputGroup } from "react-bootstrap";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Button, Card, Form, InputGroup, Spinner } from "react-bootstrap";
+import { useDebouncedCallback } from "use-debounce";
+import api from "@/services/api";
+import { formatPrice } from "@/services/utils";
 
 export function meta() {
   return [{ title: "Produtos | éComércio" }];
@@ -86,42 +89,89 @@ function TagsMobile({ tags, tagsAtivas, toggleTag, resetarTags }) {
   );
 }
 
-function ProdutoCard() {
+function ProdutoCard({ produto }) {
   return (
     <Card className="produtoCard">
       <Card.Img
         variant="top"
-        src="https://api.dicebear.com/9.x/shapes/svg?seed=2"
+        src={produto.images[0]}
         alt="produto"
+        style={{ aspectRatio: 1, objectFit: "contain" }}
       />
       <Card.Body>
         <Card.Title>
-          <a href="/produtos/123" className="stretched-link produtoCard__title">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          <a
+            href={`/produtos/${produto.id}`}
+            className="stretched-link produtoCard__title"
+          >
+            {produto.nome}
           </a>
         </Card.Title>
-        <Card.Text>R$ 25,50</Card.Text>
+        <Card.Text>{formatPrice(produto.preco)}</Card.Text>
       </Card.Body>
     </Card>
   );
 }
 
 export default function Produtos() {
-  const categorias = [
-    "Todos os produtos",
-    "Eletrodomésticos",
-    "Informática",
-    "TV e Video",
-  ];
+  const [categorias, setCategorias] = useState(["Todos os produtos"]);
   const [categoriaAtiva, setCategoriaAtiva] = useState(0);
-  const [tags, _setTags] = useState([
-    "Electrolux",
-    "SONY",
-    "Nvidia",
-    "Logitech",
-    "Panasonic",
-  ]);
+
+  const [tags, setTags] = useState([]);
   const [tagsAtivas, setTagsAtivas] = useState([]);
+
+  const [searchText, setSearchText] = useState("");
+  const searchInputRef = useRef(null);
+
+  const [produtosRaw, setProdutosRaw] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    api
+      .getAllCategorias()
+      .then((data) => setCategorias(["Todos os produtos", ...data]));
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setProdutosRaw([]);
+    setTags([]);
+    api
+      .getAllProdutos({
+        categoria:
+          categoriaAtiva === 0 ? undefined : categorias[categoriaAtiva],
+        search: searchText,
+      })
+      .then((data) => {
+        setProdutosRaw(data);
+        setTagsAtivas([]);
+        if (categoriaAtiva !== 0) {
+          setTags([
+            ...new Set(
+              data
+                .flatMap((x) => x.tags)
+                .filter((x) => x !== categorias[categoriaAtiva]),
+            ),
+          ]);
+        }
+      })
+      .finally(() => setIsLoading(false));
+  }, [categoriaAtiva, categorias[categoriaAtiva], searchText]);
+
+  const produtos = useMemo(
+    () =>
+      tagsAtivas.length
+        ? produtosRaw.filter((p) => tagsAtivas.some((t) => p.tags.includes(t)))
+        : produtosRaw,
+    [produtosRaw, tagsAtivas],
+  );
+
+  const triggerPesquisa = () => {
+    if (searchInputRef.current) {
+      setSearchText(searchInputRef.current.value);
+    }
+  };
+  const triggerPesquisaDebounce = useDebouncedCallback(triggerPesquisa, 250);
 
   const mudarCategoria = (nome) => {
     const index = categorias.indexOf(nome);
@@ -129,6 +179,10 @@ export default function Produtos() {
     if (index === categoriaAtiva) return;
     setCategoriaAtiva(index);
     setTagsAtivas([]);
+    setSearchText("");
+    if (searchInputRef.current) {
+      searchInputRef.current.value = "";
+    }
   };
 
   const toggleTag = (tag, value) => {
@@ -188,20 +242,28 @@ export default function Produtos() {
           <Form.Control
             size="lg"
             placeholder="Digite o nome de um produto..."
+            ref={searchInputRef}
+            onChange={triggerPesquisaDebounce}
           />
           <Button>
             <SearchIcon />
           </Button>
         </InputGroup>
 
+        {(isLoading || !produtos.length) && (
+          <div className="d-flex justify-content-center">
+            {isLoading && <Spinner className="text-secondary" />}
+            {!isLoading && (
+              <p>
+                <i>Nenhum produto encontrado</i>
+              </p>
+            )}
+          </div>
+        )}
         <div className="main__listagem__produtos">
-          <ProdutoCard />
-          <ProdutoCard />
-          <ProdutoCard />
-          <ProdutoCard />
-          <ProdutoCard />
-          <ProdutoCard />
-          <ProdutoCard />
+          {produtos.map((produto) => (
+            <ProdutoCard key={produto.id} produto={produto} />
+          ))}
         </div>
       </div>
     </main>

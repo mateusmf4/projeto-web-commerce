@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import api from "@/services/api";
 import "./pedidos.css";
+import { formatPrice } from "@/services/utils";
 
 export default function LojistaPedidos() {
   const [pedidos, setPedidos] = useState([]);
@@ -139,7 +140,7 @@ function PedidoInfoModal({ show, pedido, onClose }) {
                 />
                 <Card.Body>
                   <Card.Title>{produto.nome}</Card.Title>
-                  <Card.Subtitle>R$ {produto.preco}</Card.Subtitle>
+                  <Card.Subtitle>{formatPrice(produto.preco)}</Card.Subtitle>
                 </Card.Body>
               </Stack>
             </Card>

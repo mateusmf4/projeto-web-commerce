@@ -50,7 +50,7 @@ export default function LojistaProdutos() {
       setSearchText(searchInputRef.current.value);
     }
   };
-  const triggerPesquisaDebounce = useDebouncedCallback(triggerPesquisa, 250);
+  const triggerPesquisaDebounce = useDebouncedCallback(triggerPesquisa, 300);
 
   const updateCategoria = () => {
     if (selectCategoriaRef.current) {
@@ -167,7 +167,7 @@ export default function LojistaProdutos() {
                     {formatPrice(produto.preco)}
                   </td>
                   <td
-                    className={`text-center ${produto.estoque ? "" : "fw-bold text-danger"}`}
+                    className={`text-center ${produto.estoque ? "" : "fw-bold text-bg-danger"}`}
                   >
                     {produto.estoque}
                   </td>
