@@ -1,6 +1,8 @@
 import { EditIcon, SearchIcon, XSquareIcon } from "lucide-react";
 import {
+  Badge,
   Button,
+  CloseButton,
   Col,
   FloatingLabel,
   Form,
@@ -23,7 +25,9 @@ function formatPrice(price) {
 
 export default function LojistaProdutos() {
   const [produtos, setProdutos] = useState([]);
-  const [loadingProdutos, setLoadingProdutos] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [categorias, setCategorias] = useState([]);
 
   const [searchText, setSearchText] = useState("");
   const searchInputRef = useRef(null);
@@ -31,7 +35,7 @@ export default function LojistaProdutos() {
   const selectCategoriaRef = useRef(null);
 
   useEffect(() => {
-    setLoadingProdutos(true);
+    setIsLoading(true);
     api
       .getAllProdutos({
         search: searchText,
@@ -41,9 +45,13 @@ export default function LojistaProdutos() {
         setProdutos(produtos);
       })
       .finally(() => {
-        setLoadingProdutos(false);
+        setIsLoading(false);
       });
   }, [searchText, selectedCategoria]);
+
+  useEffect(() => {
+    api.getAllCategorias().then((cats) => setCategorias(cats));
+  });
 
   const triggerPesquisa = () => {
     if (searchInputRef.current) {
@@ -126,9 +134,11 @@ export default function LojistaProdutos() {
             onChange={updateCategoria}
           >
             <option value="">Todos os produtos</option>
-            <option value="Eletrodomésticos">Eletrodomésticos</option>
-            <option value="Informática">Informática</option>
-            <option value="TV e Video">TV e Video</option>
+            {categorias.map((x) => (
+              <option key={x} value={x}>
+                {x}
+              </option>
+            ))}
           </Form.Select>
         </FloatingLabel>
 
@@ -143,14 +153,14 @@ export default function LojistaProdutos() {
             </tr>
           </thead>
           <tbody>
-            {loadingProdutos && (
+            {isLoading && (
               <tr>
                 <td colSpan={5} className="text-center">
                   <Spinner className="text-secondary" />
                 </td>
               </tr>
             )}
-            {!loadingProdutos &&
+            {!isLoading &&
               produtos.map((produto) => (
                 <tr key={produto.id}>
                   <td className="text-center">{produto.id}</td>
@@ -197,6 +207,7 @@ export default function LojistaProdutos() {
       <ProdutoEditModal
         show={editProduto != null}
         produto={editProduto}
+        categorias={categorias}
         saveProduto={saveProduto}
         onClose={() => setEditProduto(null)}
         isEdit
@@ -205,6 +216,7 @@ export default function LojistaProdutos() {
       <ProdutoEditModal
         show={novoProduto != null}
         produto={novoProduto}
+        categorias={categorias}
         saveProduto={criarProduto}
         onClose={() => setNovoProduto(null)}
       />
@@ -228,13 +240,29 @@ function getBase64(file) {
   });
 }
 
-function ProdutoEditModal({ produto, saveProduto, show, onClose, isEdit }) {
+function ProdutoEditModal({
+  produto,
+  saveProduto,
+  show,
+  onClose,
+  isEdit,
+  categorias,
+}) {
   const onSave = (data) => {
     if (!images.length) {
       setImageError("Selecione pelo menos uma imagem");
       return;
     }
-    saveProduto({ ...produto, ...data, images: images.map(([img]) => img) });
+    if (!tags.length) {
+      setTagInputError("Adicione pelo menos uma tag");
+      return;
+    }
+    saveProduto({
+      ...produto,
+      ...data,
+      images: images.map(([img]) => img),
+      tags,
+    });
     onClose();
   };
 
@@ -275,7 +303,7 @@ function ProdutoEditModal({ produto, saveProduto, show, onClose, isEdit }) {
       setImages((prev) => [...prev, ...newImages]);
     }
   };
-  const deleteImage = (index) => {
+  const removerImagem = (index) => {
     setImages(images.filter((_, i) => index !== i));
   };
 
@@ -283,9 +311,33 @@ function ProdutoEditModal({ produto, saveProduto, show, onClose, isEdit }) {
     if (produto) {
       reset();
       setImageError(null);
+      setTagInputError(null);
       setImages(produto.images.map((x) => [x, Math.random()]));
+      setTags(produto.tags);
     }
   }, [produto, reset]);
+
+  const tagInputRef = useRef(null);
+  const [tags, setTags] = useState([]);
+  const [tagInputError, setTagInputError] = useState(null);
+
+  const adicionarTags = () => {
+    if (tagInputRef.current?.value?.length) {
+      setTagInputError(null);
+      setTags([
+        ...tags,
+        ...tagInputRef.current.value
+          .split(",")
+          .map((x) => x.trim())
+          .filter((x) => !tags.includes(x)),
+      ]);
+      tagInputRef.current.value = "";
+    }
+  };
+
+  const removerTag = (tag) => {
+    setTags(tags.filter((x) => x !== tag));
+  };
 
   return (
     <Modal show={show} size="xl" centered>
@@ -311,7 +363,7 @@ function ProdutoEditModal({ produto, saveProduto, show, onClose, isEdit }) {
                   {images.map(([img, key], i) => (
                     <div key={key} className="image-list__image">
                       <img src={img} alt="imagem do produto" />
-                      <button type="button" onClick={() => deleteImage(i)}>
+                      <button type="button" onClick={() => removerImagem(i)}>
                         <XCircleIcon />
                       </button>
                     </div>
@@ -366,7 +418,7 @@ function ProdutoEditModal({ produto, saveProduto, show, onClose, isEdit }) {
                 )}
               </Form.Group>
 
-              <Row>
+              <Row xs={2} lg={3}>
                 <Form.Group as={Col} controlId="ipt-preco">
                   <Form.Label>Preço</Form.Label>
                   <InputGroup>
@@ -415,9 +467,7 @@ function ProdutoEditModal({ produto, saveProduto, show, onClose, isEdit }) {
                     </Form.Control.Feedback>
                   )}
                 </Form.Group>
-              </Row>
 
-              <Row xs={1} lg={2}>
                 <Form.Group as={Col} controlId="ipt-categoria">
                   <Form.Label>Categoria</Form.Label>
                   <Form.Select
@@ -430,9 +480,11 @@ function ProdutoEditModal({ produto, saveProduto, show, onClose, isEdit }) {
                     <option value="" disabled>
                       Escolha uma categoria
                     </option>
-                    <option>Eletrodomésticos</option>
-                    <option>Informática</option>
-                    <option>TV e Video</option>
+                    {categorias.map((x) => (
+                      <option key={x} value={x}>
+                        {x}
+                      </option>
+                    ))}
                   </Form.Select>
                   {errors.categoria && (
                     <Form.Control.Feedback type="invalid">
@@ -440,11 +492,40 @@ function ProdutoEditModal({ produto, saveProduto, show, onClose, isEdit }) {
                     </Form.Control.Feedback>
                   )}
                 </Form.Group>
+              </Row>
 
+              <Row xs={1} lg={2} className="gap-3 gap-lg-0">
                 <Form.Group as={Col} controlId="ipt-tags">
                   <Form.Label>Tags</Form.Label>
-                  <Form.Control type="text" placeholder="não sei" />
+                  <InputGroup>
+                    <Form.Control
+                      type="text"
+                      placeholder="limpeza, cozinha, tecnologia, ..."
+                      ref={tagInputRef}
+                    />
+                    <Button onClick={adicionarTags}>
+                      <PlusIcon />
+                    </Button>
+                    {tagInputError && (
+                      <Form.Control.Feedback type="invalid" className="d-block">
+                        {tagInputError}
+                      </Form.Control.Feedback>
+                    )}
+                  </InputGroup>
                 </Form.Group>
+
+                <Col className="d-flex align-items-center flex-wrap gap-2">
+                  {tags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      bg="secondary"
+                      className="d-flex align-items-center gap-1"
+                    >
+                      {tag}
+                      <CloseButton onClick={() => removerTag(tag)} />
+                    </Badge>
+                  ))}
+                </Col>
               </Row>
             </Modal.Body>
 
