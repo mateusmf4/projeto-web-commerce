@@ -14,7 +14,8 @@ const Carrinho = {
 
   adicionarProduto(produto) {
     const carrinho = this.loadCarrinho();
-    carrinho.push({ ...produto, qtd: 1 });
+    if (!carrinho.find((x) => x.id === produto.id))
+      carrinho.push({ ...produto, qtd: 1 });
     this.saveCarrinho(carrinho);
     return carrinho;
   },
