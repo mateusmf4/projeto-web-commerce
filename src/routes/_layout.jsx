@@ -36,15 +36,6 @@ export default function LayoutUsuario() {
                   Produtos
                 </Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link
-                  active={location.pathname === "/contato"}
-                  href="/contato"
-                  className="text-bg-primary"
-                >
-                  Contato
-                </Nav.Link>
-              </Nav.Item>
             </Nav>
             <Button
               as="a"
