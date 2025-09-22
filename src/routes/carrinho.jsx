@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button, CloseButton, Col, Row } from "react-bootstrap";
 import SeletorQtd from "../components/seletorQtd";
 import "./carrinho.css";
@@ -15,7 +15,9 @@ function ProdsCar({ item, novaQtd, remover }) {
       />
 
       <div className="produtos-carrinho__conteudo">
-        <h6>{item.nome}</h6>
+        <h6>
+          <a href={`/produtos/${item.id}`}>{item.nome}</a>
+        </h6>
 
         <p>{formatPrice(item.preco)}</p>
 
@@ -24,7 +26,7 @@ function ProdsCar({ item, novaQtd, remover }) {
           value={item.qtd}
           onChange={(q) => novaQtd(item.id, q)}
           min={1}
-          max={3}
+          max={99}
         />
       </div>
 
@@ -51,10 +53,16 @@ export default function CarrinhoPage() {
       ),
     );
 
-  const subtotal = itens.reduce((acc, item) => acc + item.preco * item.qtd, 0);
-  const frete = 35;
-  const impostos = 20;
-  const total = subtotal + frete + impostos;
+  const subtotal = useMemo(
+    () => itens.reduce((acc, item) => acc + item.preco * item.qtd, 0),
+    [itens],
+  );
+  const frete = useMemo(() => (itens.length ? 35 : 0), [itens.length]);
+  const impostos = useMemo(() => (itens.length ? 20 : 0), [itens.length]);
+  const total = useMemo(
+    () => subtotal + frete + impostos,
+    [subtotal, frete, impostos],
+  );
 
   return (
     <main>
@@ -69,6 +77,12 @@ export default function CarrinhoPage() {
               remover={remover}
             />
           ))}
+          {itens.length === 0 && (
+            <p>
+              Seu carrinho está vazio. Adicione <a href="/produtos">produtos</a>{" "}
+              e veja-os aqui!
+            </p>
+          )}
         </div>
 
         <div className="carrinho__checkout d-none d-lg-block border p-3">
@@ -94,7 +108,9 @@ export default function CarrinhoPage() {
             <Col className="text-end">{formatPrice(total)}</Col>
           </Row>
 
-          <Button className="carrinho__btn">Checkout</Button>
+          <Button className="carrinho__btn" disabled={itens.length === 0}>
+            Checkout
+          </Button>
         </div>
       </div>
       {/* Checkout no final da pagina no mobile.. */}
