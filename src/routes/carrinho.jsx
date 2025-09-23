@@ -1,42 +1,9 @@
 import { useMemo, useState } from "react";
-import { Button, CloseButton, Col, Row } from "react-bootstrap";
-import SeletorQtd from "../components/seletorQtd";
+import { Button, Col, Row } from "react-bootstrap";
 import "./carrinho.css";
 import Carrinho from "@/services/carrinho";
+import ProdsCar from "@/components/prodsCar";
 import { formatPrice } from "@/services/utils";
-
-function ProdsCar({ item, novaQtd, remover }) {
-  return (
-    <div className="produtos-carrinho border">
-      <img
-        src={item.images[0]}
-        className="produtos-carrinho__img"
-        alt="imagem do produto"
-      />
-
-      <div className="produtos-carrinho__conteudo">
-        <h6>
-          <a href={`/produtos/${item.id}`}>{item.nome}</a>
-        </h6>
-
-        <p>{formatPrice(item.preco)}</p>
-
-        {/* Provavelmente terá que ser alterado no futuro */}
-        <SeletorQtd
-          value={item.qtd}
-          onChange={(q) => novaQtd(item.id, q)}
-          min={1}
-          max={99}
-        />
-      </div>
-
-      <CloseButton
-        className="produtos-carrinho__remover"
-        onClick={() => remover(item.id)}
-      />
-    </div>
-  );
-}
 
 export default function CarrinhoPage() {
   const [itens, setItens] = useState(Carrinho.loadCarrinho());

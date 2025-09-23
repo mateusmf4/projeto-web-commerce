@@ -1,0 +1,24 @@
+.produtos-carrinho {
+  display: flex;
+  background-color: #f5f6f5;
+  padding: 10px;
+  border-radius: var(--bs-border-radius);
+}
+
+.produtos-carrinho__img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  background: white;
+  margin-right: 1em;
+
+  border-radius: var(--bs-border-radius);
+}
+
+.produtos-carrinho__conteudo {
+  flex: 1;
+}
+
+.produtos-carrinho__remover {
+  flex-direction: column;
+}
