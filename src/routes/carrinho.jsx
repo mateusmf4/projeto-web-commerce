@@ -1,28 +1,32 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button, CloseButton, Col, Row } from "react-bootstrap";
 import SeletorQtd from "../components/seletorQtd";
 import "./carrinho.css";
+import Carrinho from "@/services/carrinho";
+import { formatPrice } from "@/services/utils";
 
 function ProdsCar({ item, novaQtd, remover }) {
   return (
     <div className="produtos-carrinho border">
       <img
-        src="https://api.dicebear.com/9.x/shapes/svg?seed=2"
+        src={item.images[0]}
         className="produtos-carrinho__img"
         alt="imagem do produto"
       />
 
       <div className="produtos-carrinho__conteudo">
-        <h6> {item.nome} </h6>
+        <h6>
+          <a href={`/produtos/${item.id}`}>{item.nome}</a>
+        </h6>
 
-        <p> R$ {item.preco.toFixed(2)} </p>
+        <p>{formatPrice(item.preco)}</p>
 
         {/* Provavelmente terá que ser alterado no futuro */}
         <SeletorQtd
           value={item.qtd}
           onChange={(q) => novaQtd(item.id, q)}
           min={1}
-          max={3}
+          max={99}
         />
       </div>
 
@@ -34,27 +38,31 @@ function ProdsCar({ item, novaQtd, remover }) {
   );
 }
 
-export default function Carrinho() {
-  const [itens, setItens] = useState([
-    { id: 1, nome: "Produto 1", preco: 13, qtd: 1 },
-    { id: 2, nome: "Produto 2", preco: 7.99, qtd: 1 },
-    { id: 3, nome: "Produto 3", preco: 25.89, qtd: 1 },
-    { id: 4, nome: "Produto 4", preco: 23.89, qtd: 1 },
-  ]);
+export default function CarrinhoPage() {
+  const [itens, setItens] = useState(Carrinho.loadCarrinho());
 
-  const remover = (id) => setItens(itens.filter((item) => item.id !== id));
+  const remover = (id) =>
+    setItens(Carrinho.saveCarrinho(itens.filter((item) => item.id !== id)));
 
   const novaQtd = (id, qtd) =>
     setItens(
-      itens.map((item) =>
-        item.id === id ? { ...item, qtd: Number(qtd) } : item,
+      Carrinho.saveCarrinho(
+        itens.map((item) =>
+          item.id === id ? { ...item, qtd: Number(qtd) } : item,
+        ),
       ),
     );
 
-  const subtotal = itens.reduce((acc, item) => acc + item.preco * item.qtd, 0);
-  const frete = 35;
-  const impostos = 20;
-  const total = subtotal + frete + impostos;
+  const subtotal = useMemo(
+    () => itens.reduce((acc, item) => acc + item.preco * item.qtd, 0),
+    [itens],
+  );
+  const frete = useMemo(() => (itens.length ? 35 : 0), [itens.length]);
+  const impostos = useMemo(() => (itens.length ? 20 : 0), [itens.length]);
+  const total = useMemo(
+    () => subtotal + frete + impostos,
+    [subtotal, frete, impostos],
+  );
 
   return (
     <main>
@@ -69,32 +77,40 @@ export default function Carrinho() {
               remover={remover}
             />
           ))}
+          {itens.length === 0 && (
+            <p>
+              Seu carrinho está vazio. Adicione <a href="/produtos">produtos</a>{" "}
+              e veja-os aqui!
+            </p>
+          )}
         </div>
 
         <div className="carrinho__checkout d-none d-lg-block border p-3">
           <Row>
             <Col>Subtotal:</Col>
-            <Col className="text-end">R$ {subtotal.toFixed(2)}</Col>
+            <Col className="text-end">{formatPrice(subtotal)}</Col>
           </Row>
 
           <Row>
             <Col>Frete:</Col>
-            <Col className="text-end">R$ {frete.toFixed(2)}</Col>
+            <Col className="text-end">{formatPrice(frete)}</Col>
           </Row>
 
           <Row>
             <Col>Impostos:</Col>
-            <Col className="text-end">R$ {impostos.toFixed(2)}</Col>
+            <Col className="text-end">{formatPrice(impostos)}</Col>
           </Row>
 
           <hr />
 
           <Row>
             <Col>Total:</Col>
-            <Col className="text-end">R$ {total.toFixed(2)}</Col>
+            <Col className="text-end">{formatPrice(total)}</Col>
           </Row>
 
-          <Button className="carrinho__btn" href="/pagamento">Checkout</Button>
+          <Button className="carrinho__btn" disabled={itens.length === 0}>
+            Checkout
+          </Button>
         </div>
       </div>
       {/* Checkout no final da pagina no mobile.. */}
@@ -102,24 +118,24 @@ export default function Carrinho() {
       <div className="d-lg-none d-flex flex-column fixed-bottom bg-body p-4 border-top">
         <Row>
           <Col>Subtotal:</Col>
-          <Col className="text-end">R$ {subtotal.toFixed(2)}</Col>
+          <Col className="text-end">{formatPrice(subtotal)}</Col>
         </Row>
 
         <Row>
           <Col>Frete:</Col>
-          <Col className="text-end">R$ {frete.toFixed(2)}</Col>
+          <Col className="text-end">{formatPrice(frete)}</Col>
         </Row>
 
         <Row>
           <Col>Impostos:</Col>
-          <Col className="text-end">R$ {impostos.toFixed(2)}</Col>
+          <Col className="text-end">{formatPrice(impostos)}</Col>
         </Row>
 
         <hr />
 
         <Row>
           <Col>Total:</Col>
-          <Col className="text-end">R$ {total.toFixed(2)}</Col>
+          <Col className="text-end">{formatPrice(total)}</Col>
         </Row>
 
         <Button className="carrinho__btn" href="/pagamento">Checkout</Button>

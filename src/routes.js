@@ -7,7 +7,8 @@ export default [
     route("produtos/:id", "routes/produtos_id.jsx"),
     route("contato", "routes/contato.jsx"),
     route("carrinho", "routes/carrinho.jsx"),
-    route("pagamento", "routes/pagamento.jsx")
+    route("pagamento", "routes/pagamento.jsx"),
+    route("pedidos", "routes/pedidos.jsx"),
   ]),
 
   ...prefix("lojista", [
@@ -15,6 +16,10 @@ export default [
       index("routes/lojista/produtos.jsx"),
       route("pedidos", "routes/lojista/pedidos.jsx"),
     ]),
+  ]),
+
+  ...prefix("admin", [
+    layout("routes/admin/_layout.jsx", [index("routes/admin/index.jsx")]),
   ]),
 
   route("login", "routes/login.jsx"),

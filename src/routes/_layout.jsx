@@ -38,11 +38,11 @@ export default function LayoutUsuario() {
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link
-                  active={location.pathname === "/contato"}
-                  href="/contato"
+                  active={location.pathname === "/pedidos"}
+                  href="/pedidos"
                   className="text-bg-primary"
                 >
-                  Contato
+                  Meus Pedidos
                 </Nav.Link>
               </Nav.Item>
             </Nav>

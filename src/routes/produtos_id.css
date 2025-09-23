@@ -11,8 +11,19 @@ main {
   flex-direction: column;
 }
 
-.main__actions {
-  display: none;
+.main__carousel {
+  .carousel-control-prev,
+  .carousel-control-next {
+    & > span {
+      background-color: rgba(0 0 0 / 50%);
+    }
+  }
+}
+
+.main__carousel-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 @media (width >= 768px) and (width < 992px) {
@@ -20,7 +31,7 @@ main {
     align-items: center;
   }
 
-  .main__carousel {
+  .main__carousel-container {
     width: 500px;
   }
 }
@@ -30,19 +41,12 @@ main {
     flex-direction: row;
   }
 
-  .main__carousel {
+  .main__carousel-container {
     flex: 4;
     max-width: 450px;
-    max-height: 450px;
-    aspect-ratio: 1;
   }
 
   .main__info {
     flex: 3;
-  }
-
-  .main__actions {
-    display: flex;
-    flex-direction: column;
   }
 }
