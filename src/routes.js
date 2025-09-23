@@ -7,6 +7,7 @@ export default [
     route("produtos/:id", "routes/produtos_id.jsx"),
     route("contato", "routes/contato.jsx"),
     route("carrinho", "routes/carrinho.jsx"),
+    route("pedidos", "routes/pedidos.jsx"),
   ]),
 
   ...prefix("lojista", [

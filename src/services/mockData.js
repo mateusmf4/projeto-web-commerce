@@ -505,13 +505,17 @@ export const PRODUTOS = [
 /**
  * @typedef {{
  *   id: number,
- *   produtos: Produto[],
+ *   produtos: {
+ *     produto: Produto,
+ *     qtd: number
+ *   }[],
  *   cliente: {
  *     nome: string,
  *     email: string,
  *   },
  *   status: "entregue" | "enviado" | "cancelado",
  *   data: string,
+ *   rastreio?: string,
  * }} Pedido
  * */
 
@@ -519,7 +523,7 @@ export const PRODUTOS = [
 export const PEDIDOS = [
   {
     id: 1,
-    produtos: [PRODUTOS[0]],
+    produtos: [{ produto: PRODUTOS[0], qtd: 1 }],
     cliente: {
       nome: "José Alberto",
       email: "jose.alberto@example.com",
@@ -529,7 +533,10 @@ export const PEDIDOS = [
   },
   {
     id: 2,
-    produtos: [PRODUTOS[1], PRODUTOS[0]],
+    produtos: [
+      { produto: PRODUTOS[1], qtd: 1 },
+      { produto: PRODUTOS[0], qtd: 1 },
+    ],
     cliente: {
       nome: "Demetrio Gomes",
       email: "demetrio.g@example.com",
@@ -539,7 +546,10 @@ export const PEDIDOS = [
   },
   {
     id: 3,
-    produtos: [PRODUTOS[3], PRODUTOS[4]],
+    produtos: [
+      { produto: PRODUTOS[3], qtd: 1 },
+      { produto: PRODUTOS[4], qtd: 3 },
+    ],
     cliente: {
       nome: "José Robert",
       email: "jose.robert@example.com",
@@ -549,7 +559,10 @@ export const PEDIDOS = [
   },
   {
     id: 4,
-    produtos: [PRODUTOS[5], PRODUTOS[2]],
+    produtos: [
+      { produto: PRODUTOS[5], qtd: 1 },
+      { produto: PRODUTOS[2], qtd: 1 },
+    ],
     cliente: {
       nome: "Mariana Souza",
       email: "mariana.souza@example.com",
@@ -559,7 +572,7 @@ export const PEDIDOS = [
   },
   {
     id: 5,
-    produtos: [PRODUTOS[7]],
+    produtos: [{ produto: PRODUTOS[7], qtd: 1 }],
     cliente: {
       nome: "Carlos Eduardo",
       email: "carlos.edu@example.com",
@@ -569,7 +582,11 @@ export const PEDIDOS = [
   },
   {
     id: 6,
-    produtos: [PRODUTOS[8], PRODUTOS[9], PRODUTOS[2]],
+    produtos: [
+      { produto: PRODUTOS[8], qtd: 1 },
+      { produto: PRODUTOS[9], qtd: 1 },
+      { produto: PRODUTOS[2], qtd: 1 },
+    ],
     cliente: {
       nome: "Fernanda Oliveira",
       email: "fernanda.oli@example.com",
@@ -579,7 +596,7 @@ export const PEDIDOS = [
   },
   {
     id: 7,
-    produtos: [PRODUTOS[10]],
+    produtos: [{ produto: PRODUTOS[10], qtd: 1 }],
     cliente: {
       nome: "Ricardo Lima",
       email: "ricardo.lima@example.com",
@@ -589,7 +606,10 @@ export const PEDIDOS = [
   },
   {
     id: 8,
-    produtos: [PRODUTOS[12], PRODUTOS[13]],
+    produtos: [
+      { produto: PRODUTOS[12], qtd: 1 },
+      { produto: PRODUTOS[13], qtd: 1 },
+    ],
     cliente: {
       nome: "Ana Beatriz",
       email: "ana.bea@example.com",
@@ -599,7 +619,10 @@ export const PEDIDOS = [
   },
   {
     id: 9,
-    produtos: [PRODUTOS[14], PRODUTOS[6]],
+    produtos: [
+      { produto: PRODUTOS[14], qtd: 1 },
+      { produto: PRODUTOS[6], qtd: 1 },
+    ],
     cliente: {
       nome: "Lucas Martins",
       email: "lucas.martins@example.com",
@@ -609,12 +632,59 @@ export const PEDIDOS = [
   },
   {
     id: 10,
-    produtos: [PRODUTOS[18], PRODUTOS[19], PRODUTOS[4]],
+    produtos: [
+      { produto: PRODUTOS[18], qtd: 1 },
+      { produto: PRODUTOS[19], qtd: 1 },
+      { produto: PRODUTOS[4], qtd: 1 },
+    ],
     cliente: {
       nome: "Patrícia Ramos",
       email: "patricia.ramos@example.com",
     },
     status: "entregue",
     data: "15/09/2025",
+  },
+];
+
+/** @type {Pedido[]} */
+export const PEDIDOS_USUARIO = [
+  {
+    id: 1,
+    produtos: [{ produto: PRODUTOS[5], qtd: 1 }],
+    cliente: {
+      nome: "Usuário Fulano",
+      email: "usuario.fulano@example.com",
+    },
+    status: "entregue",
+    data: "10/02/2024",
+    rastreio: "BR123456789HK",
+  },
+  {
+    id: 2,
+    produtos: [
+      { produto: PRODUTOS[3], qtd: 1 },
+      { produto: PRODUTOS[1], qtd: 1 },
+    ],
+    cliente: {
+      nome: "Usuário Fulano",
+      email: "usuario.fulano@example.com",
+    },
+    status: "enviado",
+    data: "15/08/2025",
+    rastreio: "PX987654321BR",
+  },
+  {
+    id: 3,
+    produtos: [
+      { produto: PRODUTOS[0], qtd: 1 },
+      { produto: PRODUTOS[2], qtd: 3 },
+    ],
+    cliente: {
+      nome: "Usuário Fulano",
+      email: "usuario.fulano@example.com",
+    },
+    status: "cancelado",
+    data: "11/08/2025",
+    rastreio: "CN543216789US",
   },
 ];

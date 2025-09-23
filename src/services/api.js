@@ -1,6 +1,6 @@
 // @ts-check
 
-import { PEDIDOS, PRODUTOS } from "./mockData";
+import { PEDIDOS, PEDIDOS_USUARIO, PRODUTOS } from "./mockData";
 
 /** @typedef {import('./mockData').Produto} Produto */
 /** @typedef {import('./mockData').Pedido} Pedido */
@@ -68,6 +68,10 @@ export async function getAllPedidos() {
   return await mockReturn(PEDIDOS);
 }
 
+export async function getMyPedidos() {
+  return await mockReturn(PEDIDOS_USUARIO);
+}
+
 /**
  * @param {'lojista' | 'admin'} tipo
  * @param {string} usuario
@@ -113,6 +117,7 @@ const api = Object.freeze({
   getProduto,
   getAllCategorias,
   getAllPedidos,
+  getMyPedidos,
   login,
   getAllLojistas,
 });

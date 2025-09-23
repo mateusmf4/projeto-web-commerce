@@ -21,7 +21,7 @@ export default function LojistaPedidos() {
   useEffect(() => {
     setLoading(true);
     api
-      .getAllPedidos()
+      .getMyPedidos()
       .then((pedidos) => {
         setPedidos(pedidos);
       })
@@ -35,6 +35,7 @@ export default function LojistaPedidos() {
   return (
     <>
       <main>
+        <h1>Histórico de compras</h1>
         <Table striped bordered hover responsive className="align-middle">
           <thead>
             <tr>
@@ -125,14 +126,10 @@ function PedidoInfoModal({ show, pedido, onClose }) {
         <Modal.Title>Informações do pedido #{pedido.id}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h3>Informações do Cliente</h3>
+        <h3>Informações do Pedido</h3>
         <Form.Group>
-          <Form.Label>Nome</Form.Label>
-          <Form.Control readOnly defaultValue={pedido.cliente.nome} />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Email</Form.Label>
-          <Form.Control readOnly defaultValue={pedido.cliente.email} />
+          <Form.Label>Código de rastreamento</Form.Label>
+          <Form.Control readOnly defaultValue={pedido.rastreio} />
         </Form.Group>
 
         <h3 className="mt-3">Produtos</h3>
