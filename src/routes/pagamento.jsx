@@ -2,6 +2,8 @@ import { useState } from 'react'
 import EtapaEntrega from "@/components/etapaEntrega"
 import EtapaPagamento from "@/components/etapaPagamento"
 import EtapaResumo from "@/components/etapaResumo"
+import Passos from '@/components/passos'
+import './pagamento.css'
 
 export function meta() {
   return [{ title: "Checkout" }];
@@ -64,10 +66,14 @@ export default function Pagamento() {
   return (
     <main>
       <div>
-        <h2>Etapas aqui</h2>
-      </div>
+        <h1>Checkout</h1>
 
-      <div>{renderEtapa()}</div>
+        <div className="checkout-etapas">
+          <Passos step={etapa} />
+        </div>
+
+        {renderEtapa()}
+      </div>
     </main>
   )
 }
