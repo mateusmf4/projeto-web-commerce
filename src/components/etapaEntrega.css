@@ -1,0 +1,30 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__input {
+  display: flex;
+  gap: 1.3rem;
+  margin-bottom: 1rem;
+
+  input {
+    height: 2.1rem;
+  }
+}
+
+.input__cep {
+  width: 12rem;
+}
+
+.input__logradouro {
+  width: 25rem;
+}
+
+.input__numero {
+  width: 5rem;
+}
+
+.form__button {
+  width: fit-content;
+}
