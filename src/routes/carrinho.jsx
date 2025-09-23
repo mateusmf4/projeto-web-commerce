@@ -57,11 +57,10 @@ export default function CarrinhoPage() {
     () => itens.reduce((acc, item) => acc + item.preco * item.qtd, 0),
     [itens],
   );
-  const frete = useMemo(() => (itens.length ? 35 : 0), [itens.length]);
   const impostos = useMemo(() => (itens.length ? 20 : 0), [itens.length]);
   const total = useMemo(
-    () => subtotal + frete + impostos,
-    [subtotal, frete, impostos],
+    () => subtotal + impostos,
+    [subtotal, impostos],
   );
 
   return (
@@ -92,11 +91,6 @@ export default function CarrinhoPage() {
           </Row>
 
           <Row>
-            <Col>Frete:</Col>
-            <Col className="text-end">{formatPrice(frete)}</Col>
-          </Row>
-
-          <Row>
             <Col>Impostos:</Col>
             <Col className="text-end">{formatPrice(impostos)}</Col>
           </Row>
@@ -119,11 +113,6 @@ export default function CarrinhoPage() {
         <Row>
           <Col>Subtotal:</Col>
           <Col className="text-end">{formatPrice(subtotal)}</Col>
-        </Row>
-
-        <Row>
-          <Col>Frete:</Col>
-          <Col className="text-end">{formatPrice(frete)}</Col>
         </Row>
 
         <Row>
