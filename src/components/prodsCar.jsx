@@ -20,16 +20,22 @@ export default function ProdsCar({ item, novaQtd, remover }) {
         <p>{formatPrice(item.preco)}</p>
 
         {/* Provavelmente terá que ser alterado no futuro */}
-        <SeletorQtd
-          value={item.qtd}
-          onChange={(q) => novaQtd(item.id, q)}
-          min={1}
-          max={99}
-        />
+        <div className={`${novaQtd ? "" : "d-none"}`}>
+          <SeletorQtd
+            value={item.qtd}
+            onChange={(q) => novaQtd(item.id, q)}
+            min={1}
+            max={99}
+          />
+        </div>
+
+        <p className={`${novaQtd ? "d-none" : ""}`}>Quantidade: {item.qtd}</p>
       </div>
 
       <CloseButton
-        className="produtos-carrinho__remover"
+        className={`produtos-carrinho__remover
+          ${remover ? "" : "d-none"}
+        `}
         onClick={() => remover(item.id)}
       />
     </div>
