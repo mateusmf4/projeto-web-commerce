@@ -4,9 +4,10 @@ import EtapaPagamento from "@/components/etapaPagamento";
 import EtapaResumo from "@/components/etapaResumo";
 import Passos from "@/components/passos";
 import "./pagamento.css";
+import Carrinho from "@/services/carrinho";
 
 export function meta() {
-  return [{ title: "Checkout" }];
+  return [{ title: "Checkout | éComércio" }];
 }
 
 export default function Pagamento() {
@@ -55,6 +56,8 @@ export default function Pagamento() {
             onConfirm={() => {
               alert("Pedido realizado!");
               console.log(checkoutForm);
+              Carrinho.limparCarrinho();
+              window.location.href = "/pedidos";
             }}
           />
         );
