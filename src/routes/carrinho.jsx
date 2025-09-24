@@ -69,7 +69,7 @@ export default function CarrinhoPage() {
             <Col className="text-end">{formatPrice(total)}</Col>
           </Row>
 
-          <Button className="carrinho__btn" disabled={itens.length === 0}>
+          <Button className="carrinho__btn" href="/pagamento" disabled={itens.length === 0}>
             Checkout
           </Button>
         </div>
