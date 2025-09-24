@@ -6,7 +6,7 @@ import ProdsCar from "./prodsCar";
 import "./etapaResumo.css";
 
 export default function EtapaResumo({ dados, onPrev, onConfirm }) {
-  const [itens, setItens] = useState(Carrinho.loadCarrinho());
+  const [itens] = useState(Carrinho.loadCarrinho());
 
   const subtotal = itens.reduce((acc, item) => acc + item.preco * item.qtd, 0);
 

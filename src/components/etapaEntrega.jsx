@@ -1,16 +1,41 @@
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "./etapaEntrega.css";
+import { useEffect } from "react";
 import MaskedInput from "@/components/MaskedInput";
 
 export default function EtapaEntrega({ dados, onNext }) {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: dados,
   });
+
+  const localizarCEP = async (cep) => {
+    if (!cep || cep.replace(/\D/g, "") < 8) return;
+
+    await fetch(`https://viacep.com.br/ws/${cep}/json`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.erro) {
+          alert("CEP inválido!");
+        }
+
+        setValue("logradouro", data.logradouro || "");
+        setValue("bairro", data.bairro || "");
+        setValue("cidade", data.localidade || "");
+      });
+  };
+
+  const cep = watch("cep");
+
+  useEffect(() => {
+    localizarCEP(cep);
+  }, [cep]);
 
   const onSubmit = (nDados) => {
     onNext(nDados);
