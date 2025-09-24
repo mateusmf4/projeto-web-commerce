@@ -1,0 +1,26 @@
+.resumo {
+  display: flex;
+  gap: 1rem;
+}
+
+.resumo-pedido {
+  flex: 1;
+  max-width: 400px;
+  background-color: #f5f6f5;
+
+  border-radius: var(--bs-border-radius);
+}
+
+.checkout-produtos {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.resumo-buttons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
