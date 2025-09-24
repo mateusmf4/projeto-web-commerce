@@ -5,6 +5,10 @@ import "./carrinho.css";
 import Carrinho from "@/services/carrinho";
 import { formatPrice } from "@/services/utils";
 
+export function meta() {
+  return [{ title: "Carrinho | éComércio" }];
+}
+
 function ProdsCar({ item, novaQtd, remover }) {
   return (
     <div className="produtos-carrinho border">
