@@ -1,6 +1,22 @@
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { useMemo, useState } from "react";
+import { Button, Card, Col, Form, InputGroup, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "./etapaPagamento.css";
+import creditCardType from "credit-card-type";
+import { CreditCardIcon } from "lucide-react";
+import BadgeElo from "@/assets/cards/elo.svg?react";
+import BadgeHipercard from "@/assets/cards/hipercard.svg?react";
+import BadgeMastercard from "@/assets/cards/mastercard.svg?react";
+import BadgeVisa from "@/assets/cards/visa.svg?react";
+
+const KNOWN_CARDS = ["elo", "hipercard", "mastercard", "visa"];
+const CARD_LOGOS = [
+  CreditCardIcon,
+  BadgeElo,
+  BadgeHipercard,
+  BadgeMastercard,
+  BadgeVisa,
+];
 
 export default function EtapaPagamento({ dados, onPrev, onNext }) {
   const {
@@ -13,6 +29,26 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
 
   const onSubmit = (nDados) => {
     onNext(nDados);
+  };
+
+  const [cardIndex, setCardIndex] = useState(0);
+  const ActiveCardLogo = useMemo(() => CARD_LOGOS[cardIndex], [cardIndex]);
+
+  const onCartaoInput = (e) => {
+    const filtered = e.target.value.replace(/\D/g, "").trim();
+    if (!filtered.length) {
+      setCardIndex(0);
+      return;
+    }
+
+    const guesses = creditCardType(filtered).filter((card) =>
+      KNOWN_CARDS.includes(card.type),
+    );
+    if (!guesses.length) {
+      setCardIndex(0);
+      return;
+    }
+    setCardIndex(KNOWN_CARDS.indexOf(guesses[0].type) + 1);
   };
 
   return (
@@ -36,14 +72,20 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
             <Row xs={2} lg={1}>
               <Form.Group as={Col} xs={8} lg={8}>
                 <Form.Label>Número do Cartão</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Número do cartão"
-                  isInvalid={errors.numeroCartao}
-                  {...register("numeroCartao", {
-                    required: "O número do cartão é obrigatório",
-                  })}
-                />
+                <InputGroup>
+                  <Form.Control
+                    type="text"
+                    placeholder="Número do cartão"
+                    isInvalid={errors.numeroCartao}
+                    onInput={onCartaoInput}
+                    {...register("numeroCartao", {
+                      required: "O número do cartão é obrigatório",
+                    })}
+                  />
+                  <InputGroup.Text>
+                    <ActiveCardLogo width="auto" height="1lh" />
+                  </InputGroup.Text>
+                </InputGroup>
                 <Form.Control.Feedback type="invalid">
                   {errors.numeroCartao?.message}
                 </Form.Control.Feedback>

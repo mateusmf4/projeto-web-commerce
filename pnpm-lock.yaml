@@ -17,6 +17,9 @@ importers:
       bootstrap:
         specifier: ^5.3.8
         version: 5.3.8(@popperjs/core@2.11.8)
+      credit-card-type:
+        specifier: ^10.1.0
+        version: 10.1.0
       isbot:
         specifier: ^5.1.27
         version: 5.1.30
@@ -866,6 +869,9 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  credit-card-type@10.1.0:
+    resolution: {integrity: sha512-yd9ebGqWQ9zDvxrvCOkX80GiTvVJ28940uIMqRA58Cu3ReiPkOS4p45d9Y2cmJZtZgp90WdwLSiUtI8lHDgE2g==}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -2498,6 +2504,8 @@ snapshots:
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
+
+  credit-card-type@10.1.0: {}
 
   cross-spawn@7.0.6:
     dependencies:

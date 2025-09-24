@@ -29,7 +29,9 @@ export default function ProdsCar({ item, novaQtd, remover }) {
           />
         </div>
 
-        <p className={`${novaQtd ? "d-none" : ""}`}>Quantidade: {item.qtd}</p>
+        <p className={`${novaQtd ? "d-none" : ""} mb-0`}>
+          Quantidade: {item.qtd}
+        </p>
       </div>
 
       <CloseButton
