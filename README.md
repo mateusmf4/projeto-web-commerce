@@ -10,3 +10,11 @@ Link para site: https://ecomercio.pages.dev/
 * React Router
 * React Bootstrap
 * React Hook Form
+
+## Instruções
+
+Para rodar o projeto, basta:
+```
+npm install
+npm run dev
+```
