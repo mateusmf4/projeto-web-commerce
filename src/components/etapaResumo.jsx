@@ -1,9 +1,9 @@
-import { Button, Col, Row } from "react-bootstrap"
 import { useState } from "react";
-import Carrinho from "@/services/carrinho"
+import { Button, Col, Row } from "react-bootstrap";
+import Carrinho from "@/services/carrinho";
 import { formatPrice } from "@/services/utils";
-import ProdsCar from "./prodsCar"
-import "./etapaResumo.css"
+import ProdsCar from "./prodsCar";
+import "./etapaResumo.css";
 
 export default function EtapaResumo({ dados, onPrev, onConfirm }) {
   const [itens, setItens] = useState(Carrinho.loadCarrinho());
@@ -21,27 +21,17 @@ export default function EtapaResumo({ dados, onPrev, onConfirm }) {
       <h2>Resumo do pedido</h2>
 
       <div className="resumo">
-
         <div className="checkout-produtos">
-          {
-            itens.map((item) => (
-              <ProdsCar
-                key={item.id}
-                item={item}
-                novaQtd={null}
-                remover={null}
-              />
-            ))
-          }
+          {itens.map((item) => (
+            <ProdsCar key={item.id} item={item} novaQtd={null} remover={null} />
+          ))}
         </div>
 
         <div className="resumo-pedido d-none d-lg-block border p-3">
           <Row>
             <Col>
-              {
-                `Endereço de entrega: ${dados.entrega.logradouro}, ${dados.entrega.numero},
-                ${dados.entrega.cep}, ${dados.entrega.bairro}, ${dados.entrega.cidade}`
-              }
+              {`Endereço de entrega: ${dados.entrega.logradouro}, ${dados.entrega.numero},
+                ${dados.entrega.cep}, ${dados.entrega.bairro}, ${dados.entrega.cidade}`}
             </Col>
           </Row>
 
@@ -74,13 +64,9 @@ export default function EtapaResumo({ dados, onPrev, onConfirm }) {
           </Row>
 
           <div className="resumo-buttons">
-            <Button onClick={onPrev}>
-              Voltar
-            </Button>
+            <Button onClick={onPrev}>Voltar</Button>
 
-            <Button onClick={onConfirm}>
-              Finalizar Pedido
-            </Button>
+            <Button onClick={onConfirm}>Finalizar Pedido</Button>
           </div>
         </div>
 
@@ -89,10 +75,8 @@ export default function EtapaResumo({ dados, onPrev, onConfirm }) {
         <div className="d-lg-none d-flex flex-column fixed-bottom bg-body p-4 border-top">
           <Row>
             <Col>
-              {
-                `Endereço de entrega: ${dados.entrega.logradouro}, ${dados.entrega.numero},
-                ${dados.entrega.cep}, ${dados.entrega.bairro}, ${dados.entrega.cidade}`
-              }
+              {`Endereço de entrega: ${dados.entrega.logradouro}, ${dados.entrega.numero},
+                ${dados.entrega.cep}, ${dados.entrega.bairro}, ${dados.entrega.cidade}`}
             </Col>
           </Row>
 
@@ -125,16 +109,12 @@ export default function EtapaResumo({ dados, onPrev, onConfirm }) {
           </Row>
 
           <div className="resumo-buttons">
-            <Button onClick={onPrev}>
-              Voltar
-            </Button>
+            <Button onClick={onPrev}>Voltar</Button>
 
-            <Button onClick={onConfirm}>
-              Finalizar Pedido
-            </Button>
+            <Button onClick={onConfirm}>Finalizar Pedido</Button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

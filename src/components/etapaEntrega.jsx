@@ -1,10 +1,14 @@
-import { useForm } from "react-hook-form"
-import "./etapaEntrega.css"
+import { useForm } from "react-hook-form";
+import "./etapaEntrega.css";
 import { Button } from "react-bootstrap";
 
 export default function EtapaEntrega({ dados, onNext }) {
-  const { register, handleSubmit, formState: { errors }} = useForm({
-    defaultValues: dados
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: dados,
   });
 
   const onSubmit = (nDados) => {
@@ -31,9 +35,13 @@ export default function EtapaEntrega({ dados, onNext }) {
               type="text"
               placeholder="Logradouro"
               className="input__logradouro border rounded"
-              {...register("logradouro", { required: "O logradouro é obrigatório" })}
+              {...register("logradouro", {
+                required: "O logradouro é obrigatório",
+              })}
             />
-            {errors.logradouro && <p style={{ color: "red" }}>{errors.logradouro.message}</p>}
+            {errors.logradouro && (
+              <p style={{ color: "red" }}>{errors.logradouro.message}</p>
+            )}
           </div>
 
           <div>
@@ -43,7 +51,9 @@ export default function EtapaEntrega({ dados, onNext }) {
               className="input__numero border rounded"
               {...register("numero", { required: "O número é obrigatório" })}
             />
-            {errors.numero && <p style={{ color: "red" }}>{errors.numero.message}</p>}
+            {errors.numero && (
+              <p style={{ color: "red" }}>{errors.numero.message}</p>
+            )}
           </div>
         </div>
 
@@ -55,7 +65,9 @@ export default function EtapaEntrega({ dados, onNext }) {
               className="border rounded"
               {...register("bairro", { required: "O bairro é obrigatório" })}
             />
-            {errors.bairro && <p style={{ color: "red" }}>{errors.bairro.message}</p>}
+            {errors.bairro && (
+              <p style={{ color: "red" }}>{errors.bairro.message}</p>
+            )}
           </div>
 
           <div>
@@ -65,12 +77,16 @@ export default function EtapaEntrega({ dados, onNext }) {
               className="border rounded"
               {...register("cidade", { required: "A cidade é obrigatória" })}
             />
-            {errors.cidade && <p style={{ color: "red" }}>{errors.cidade.message}</p>}
+            {errors.cidade && (
+              <p style={{ color: "red" }}>{errors.cidade.message}</p>
+            )}
           </div>
         </div>
 
-        <Button className="form__button" type="submit">Próximo</Button>
+        <Button className="form__button" type="submit">
+          Próximo
+        </Button>
       </form>
     </div>
-  )
+  );
 }

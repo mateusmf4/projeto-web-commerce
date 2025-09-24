@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import EtapaEntrega from "@/components/etapaEntrega"
-import EtapaPagamento from "@/components/etapaPagamento"
-import EtapaResumo from "@/components/etapaResumo"
-import Passos from '@/components/passos'
-import './pagamento.css'
+import { useState } from "react";
+import EtapaEntrega from "@/components/etapaEntrega";
+import EtapaPagamento from "@/components/etapaPagamento";
+import EtapaResumo from "@/components/etapaResumo";
+import Passos from "@/components/passos";
+import "./pagamento.css";
 
 export function meta() {
   return [{ title: "Checkout" }];
@@ -14,11 +14,11 @@ export default function Pagamento() {
 
   const [checkoutForm, setCheckoutForm] = useState({
     entrega: {},
-    pagamento: {}
+    pagamento: {},
   });
 
   const atualizaForm = (dados) => {
-    setCheckoutForm((antDados) => ({...antDados, ...dados}));
+    setCheckoutForm((antDados) => ({ ...antDados, ...dados }));
   };
 
   const proxEtapa = () => setEtapa((ant) => ant + 1);
@@ -54,7 +54,7 @@ export default function Pagamento() {
             onPrev={antEtapa}
             onConfirm={() => {
               alert("Pedido realizado!");
-              console.log(checkoutForm)
+              console.log(checkoutForm);
             }}
           />
         );
@@ -75,5 +75,5 @@ export default function Pagamento() {
         {renderEtapa()}
       </div>
     </main>
-  )
+  );
 }

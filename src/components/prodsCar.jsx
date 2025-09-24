@@ -1,7 +1,7 @@
 import { CloseButton } from "react-bootstrap";
-import SeletorQtd from "./seletorQtd";
 import { formatPrice } from "@/services/utils";
-import "./prodsCar.css"
+import SeletorQtd from "./seletorQtd";
+import "./prodsCar.css";
 
 export default function ProdsCar({ item, novaQtd, remover }) {
   return (

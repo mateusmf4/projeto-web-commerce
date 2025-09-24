@@ -1,5 +1,5 @@
-import "./passos.css"
-import { TruckIcon, WalletCardsIcon, FileTextIcon } from "lucide-react";
+import "./passos.css";
+import { FileTextIcon, TruckIcon, WalletCardsIcon } from "lucide-react";
 
 export default function Passos({ step }) {
   const steps = [
@@ -12,9 +12,15 @@ export default function Passos({ step }) {
     <div className="passos">
       {steps.map((s, index) => (
         <div className="passos__etapa" key={s.id}>
-          <div className={`passos__icone
-            ${step === s.id ? "passos__icone--ativo" :
-              step > s.id ? "passos__icone--feito" : ""}
+          <div
+            className={`passos__icone
+            ${
+              step === s.id
+                ? "passos__icone--ativo"
+                : step > s.id
+                  ? "passos__icone--feito"
+                  : ""
+            }
           `}
           >
             {s.icon}
@@ -22,7 +28,8 @@ export default function Passos({ step }) {
 
           {/* Linha de conexão (não desenha depois da última etapa) */}
           {index < steps.length - 1 && (
-            <div className={`passos__linha
+            <div
+              className={`passos__linha
                 ${step > s.id ? "passos__linha--feito" : ""}
               `}
             />

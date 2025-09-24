@@ -1,10 +1,14 @@
-import { useForm } from "react-hook-form"
-import { Form, Button } from "react-bootstrap";
-import "./etapaPagamento.css"
+import { Button, Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import "./etapaPagamento.css";
 
 export default function EtapaPagamento({ dados, onPrev, onNext }) {
-  const { register, handleSubmit, formState: { errors }} = useForm({
-    defaultValues: dados
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: dados,
   });
 
   const onSubmit = (nDados) => {
@@ -16,10 +20,7 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
       <h2>Pagamento</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
         <div className="form__input">
-          <Form.Select
-            className="input__parcela"
-            {...register("parcela")}
-          >
+          <Form.Select className="input__parcela" {...register("parcela")}>
             <option>À vista</option>
             <option>2x</option>
             <option>3x</option>
@@ -31,9 +32,13 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
               type="text"
               placeholder="Número do cartão"
               className="input__cartao border rounded"
-              {...register("numeroCartao", { required: "O número do cartão é obrigatório" })}
+              {...register("numeroCartao", {
+                required: "O número do cartão é obrigatório",
+              })}
             />
-            {errors.numeroCartao && <p style={{ color: "red" }}>{errors.numeroCartao.message}</p>}
+            {errors.numeroCartao && (
+              <p style={{ color: "red" }}>{errors.numeroCartao.message}</p>
+            )}
           </div>
 
           <div>
@@ -43,7 +48,9 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
               className="input__cvv border rounded"
               {...register("cvvCartao", { required: "O CVV é obrigatório" })}
             />
-            {errors.cvvCartao && <p style={{ color: "red" }}>{errors.cvvCartao.message}</p>}
+            {errors.cvvCartao && (
+              <p style={{ color: "red" }}>{errors.cvvCartao.message}</p>
+            )}
           </div>
         </div>
 
@@ -55,7 +62,9 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
               className="input__nome border rounded"
               {...register("nomeCartao", { required: "O nome é obrigatório" })}
             />
-            {errors.nomeCartao && <p style={{ color: "red" }}>{errors.nomeCartao.message}</p>}
+            {errors.nomeCartao && (
+              <p style={{ color: "red" }}>{errors.nomeCartao.message}</p>
+            )}
           </div>
         </div>
 
@@ -67,7 +76,9 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
               className="input__endereco border rounded"
               {...register("nomeCartao", { required: "O nome é obrigatório" })}
             />
-            {errors.nomeCartao && <p style={{ color: "red" }}>{errors.nomeCartao.message}</p>}
+            {errors.nomeCartao && (
+              <p style={{ color: "red" }}>{errors.nomeCartao.message}</p>
+            )}
           </div>
         </div>
 
@@ -79,5 +90,5 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
         </div>
       </form>
     </div>
-  )
+  );
 }
