@@ -1,4 +1,4 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "./etapaPagamento.css";
 
@@ -17,78 +17,93 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
 
   return (
     <div>
-      <h2>Pagamento</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <div className="form__input">
-          <Form.Select className="input__parcela" {...register("parcela")}>
-            <option>À vista</option>
-            <option>2x</option>
-            <option>3x</option>
-            <option>4x</option>
-          </Form.Select>
+      <Card>
+        <Card.Header>
+          <h2 className="mb-0 text-center">Pagamento</h2>
+        </Card.Header>
+        <Card.Body>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form.Group>
+              <Form.Label>Parcela</Form.Label>
+              <Form.Select {...register("parcela")}>
+                <option>À vista</option>
+                <option>2x</option>
+                <option>3x</option>
+                <option>4x</option>
+              </Form.Select>
+            </Form.Group>
 
-          <div>
-            <input
-              type="text"
-              placeholder="Número do cartão"
-              className="input__cartao border rounded"
-              {...register("numeroCartao", {
-                required: "O número do cartão é obrigatório",
-              })}
-            />
-            {errors.numeroCartao && (
-              <p style={{ color: "red" }}>{errors.numeroCartao.message}</p>
-            )}
-          </div>
+            <Row xs={2} lg={1}>
+              <Form.Group as={Col} xs={8} lg={8}>
+                <Form.Label>Número do Cartão</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Número do cartão"
+                  isInvalid={errors.numeroCartao}
+                  {...register("numeroCartao", {
+                    required: "O número do cartão é obrigatório",
+                  })}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.numeroCartao?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-          <div>
-            <input
-              type="text"
-              placeholder="CVV"
-              className="input__cvv border rounded"
-              {...register("cvvCartao", { required: "O CVV é obrigatório" })}
-            />
-            {errors.cvvCartao && (
-              <p style={{ color: "red" }}>{errors.cvvCartao.message}</p>
-            )}
-          </div>
-        </div>
+              <Form.Group as={Col} xs={4} lg={2}>
+                <Form.Label>CVV</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="CVV"
+                  isInvalid={errors.cvvCartao}
+                  {...register("cvvCartao", {
+                    required: true,
+                  })}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.cvvCartao?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-        <div className="form__input">
-          <div>
-            <input
-              type="text"
-              placeholder="Nome no cartão"
-              className="input__nome border rounded"
-              {...register("nomeCartao", { required: "O nome é obrigatório" })}
-            />
-            {errors.nomeCartao && (
-              <p style={{ color: "red" }}>{errors.nomeCartao.message}</p>
-            )}
-          </div>
-        </div>
+              <Form.Group as={Col} xs={12} lg={2}>
+                <Form.Label>Validade</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="MM / AAAA"
+                  isInvalid={errors.validadeCartao}
+                  {...register("validadeCartao", {
+                    required: true,
+                  })}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.validadeCartao?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
 
-        <div className="form__input">
-          <div>
-            <input
-              type="text"
-              placeholder="Endereço de cobrança"
-              className="input__endereco border rounded"
-              {...register("nomeCartao", { required: "O nome é obrigatório" })}
-            />
-            {errors.nomeCartao && (
-              <p style={{ color: "red" }}>{errors.nomeCartao.message}</p>
-            )}
-          </div>
-        </div>
+            <Form.Group>
+              <Form.Label>Nome do titular</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Nome do titular"
+                isInvalid={errors.nomeCartao}
+                {...register("nomeCartao", {
+                  required: "O nome é obrigatório",
+                })}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.nomeCartao?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-        <div className="form__buttons">
-          <Button type="button" onClick={onPrev}>
-            Voltar
-          </Button>
-          <Button type="submit">Próximo</Button>
-        </div>
-      </form>
+            <div className="d-flex justify-content-center gap-3 mt-3">
+              <Button type="button" onClick={onPrev} variant="secondary">
+                Voltar
+              </Button>
+              <Button type="submit">Próximo</Button>
+            </div>
+          </Form>
+        </Card.Body>
+      </Card>
     </div>
   );
 }

@@ -1,6 +1,6 @@
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "./etapaEntrega.css";
-import { Button } from "react-bootstrap";
 
 export default function EtapaEntrega({ dados, onNext }) {
   const {
@@ -17,76 +17,113 @@ export default function EtapaEntrega({ dados, onNext }) {
 
   return (
     <div>
-      <h2>Endereço de Entrega</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <div className="form__input">
-          <div>
-            <input
-              type="text"
-              placeholder="CEP"
-              className="input__cep border rounded"
-              {...register("cep", { required: "O CEP é obrigatório" })}
-            />
-            {errors.cep && <p style={{ color: "red" }}>{errors.cep.message}</p>}
-          </div>
+      <Card>
+        <Card.Header>
+          <h2 className="text-center mb-0">Endereço de Entrega</h2>
+        </Card.Header>
+        <Card.Body>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Row xs={1} lg={2}>
+              <Form.Group as={Col}>
+                <Form.Label>CEP</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="CEP"
+                  className="input__cep"
+                  isInvalid={errors.cep}
+                  {...register("cep", { required: "O CEP é obrigatório" })}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.cep?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-          <div>
-            <input
-              type="text"
-              placeholder="Logradouro"
-              className="input__logradouro border rounded"
-              {...register("logradouro", {
-                required: "O logradouro é obrigatório",
-              })}
-            />
-            {errors.logradouro && (
-              <p style={{ color: "red" }}>{errors.logradouro.message}</p>
-            )}
-          </div>
+              <Form.Group as={Col}>
+                <Form.Label>Logradouro</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Logradouro"
+                  className="input__logradouro"
+                  isInvalid={errors.logradouro}
+                  {...register("logradouro", {
+                    required: "O logradouro é obrigatório",
+                  })}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.logradouro?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
 
-          <div>
-            <input
-              type="text"
-              placeholder="Número"
-              className="input__numero border rounded"
-              {...register("numero", { required: "O número é obrigatório" })}
-            />
-            {errors.numero && (
-              <p style={{ color: "red" }}>{errors.numero.message}</p>
-            )}
-          </div>
-        </div>
+            <Row>
+              <Form.Group as={Col}>
+                <Form.Label>Número</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Número"
+                  className="input__numero"
+                  isInvalid={errors.numero}
+                  {...register("numero", {
+                    required: "O número é obrigatório",
+                  })}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.numero?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-        <div className="form__input">
-          <div>
-            <input
-              type="text"
-              placeholder="Bairro"
-              className="border rounded"
-              {...register("bairro", { required: "O bairro é obrigatório" })}
-            />
-            {errors.bairro && (
-              <p style={{ color: "red" }}>{errors.bairro.message}</p>
-            )}
-          </div>
+              <Form.Group as={Col}>
+                <Form.Label>Complemento</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Complemento"
+                  isInvalid={errors.complemento}
+                  {...register("complemento")}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.complemento?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
 
-          <div>
-            <input
-              type="text"
-              placeholder="Cidade"
-              className="border rounded"
-              {...register("cidade", { required: "A cidade é obrigatória" })}
-            />
-            {errors.cidade && (
-              <p style={{ color: "red" }}>{errors.cidade.message}</p>
-            )}
-          </div>
-        </div>
+            <Row>
+              <Form.Group as={Col}>
+                <Form.Label>Bairro</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Bairro"
+                  isInvalid={errors.bairro}
+                  {...register("bairro", {
+                    required: "O bairro é obrigatório",
+                  })}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.bairro?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-        <Button className="form__button" type="submit">
-          Próximo
-        </Button>
-      </form>
+              <Form.Group as={Col}>
+                <Form.Label>Cidade</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Cidade"
+                  isInvalid={errors.cidade}
+                  {...register("cidade", {
+                    required: "A cidade é obrigatória",
+                  })}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.cidade?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+
+            <div className="d-flex justify-content-center mt-3">
+              <Button type="submit">Próximo</Button>
+            </div>
+          </Form>
+        </Card.Body>
+      </Card>
     </div>
   );
 }
