@@ -8,6 +8,7 @@ import BadgeElo from "@/assets/cards/elo.svg?react";
 import BadgeHipercard from "@/assets/cards/hipercard.svg?react";
 import BadgeMastercard from "@/assets/cards/mastercard.svg?react";
 import BadgeVisa from "@/assets/cards/visa.svg?react";
+import MaskedInput from "@/components/MaskedInput";
 
 const KNOWN_CARDS = ["elo", "hipercard", "mastercard", "visa"];
 const CARD_LOGOS = [
@@ -73,7 +74,8 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
               <Form.Group as={Col} xs={8} lg={8}>
                 <Form.Label>Número do Cartão</Form.Label>
                 <InputGroup>
-                  <Form.Control
+                  <MaskedInput
+                    mask="0000 0000 0000 0000"
                     type="text"
                     placeholder="Número do cartão"
                     isInvalid={errors.numeroCartao}
@@ -93,7 +95,9 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
 
               <Form.Group as={Col} xs={4} lg={2}>
                 <Form.Label>CVV</Form.Label>
-                <Form.Control
+                <MaskedInput
+                  // não sei se tem algum maior que 3 digitos, mais vai que
+                  mask="00000"
                   type="text"
                   placeholder="CVV"
                   isInvalid={errors.cvvCartao}
@@ -108,9 +112,10 @@ export default function EtapaPagamento({ dados, onPrev, onNext }) {
 
               <Form.Group as={Col} xs={12} lg={2}>
                 <Form.Label>Validade</Form.Label>
-                <Form.Control
+                <MaskedInput
+                  mask="00/0000"
                   type="text"
-                  placeholder="MM / AAAA"
+                  placeholder="MM/AA"
                   isInvalid={errors.validadeCartao}
                   {...register("validadeCartao", {
                     required: true,

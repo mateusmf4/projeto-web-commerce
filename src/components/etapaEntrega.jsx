@@ -1,6 +1,7 @@
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "./etapaEntrega.css";
+import MaskedInput from "@/components/MaskedInput";
 
 export default function EtapaEntrega({ dados, onNext }) {
   const {
@@ -26,7 +27,8 @@ export default function EtapaEntrega({ dados, onNext }) {
             <Row xs={1} lg={2}>
               <Form.Group as={Col}>
                 <Form.Label>CEP</Form.Label>
-                <Form.Control
+                <MaskedInput
+                  mask="00000-000"
                   type="text"
                   placeholder="CEP"
                   className="input__cep"
