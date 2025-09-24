@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main>
       <div className="text-center my-5">
-        <h1 className="display-2 fw-bold">Comércio é na éComercio!</h1>
+        <h1 className="display-2 fw-bold">Comércio é na éComércio!</h1>
         <p className="display-6">Sua nova plataforma de comércio está aqui.</p>
         <LogoIconSvg width="5em" height="5em" />
       </div>
