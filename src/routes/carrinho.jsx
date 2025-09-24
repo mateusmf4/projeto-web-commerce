@@ -1,45 +1,12 @@
 import { useMemo, useState } from "react";
-import { Button, CloseButton, Col, Row } from "react-bootstrap";
-import SeletorQtd from "../components/seletorQtd";
+import { Button, Col, Row } from "react-bootstrap";
 import "./carrinho.css";
+import ProdsCar from "@/components/prodsCar";
 import Carrinho from "@/services/carrinho";
 import { formatPrice } from "@/services/utils";
 
 export function meta() {
   return [{ title: "Carrinho | éComércio" }];
-}
-
-function ProdsCar({ item, novaQtd, remover }) {
-  return (
-    <div className="produtos-carrinho border">
-      <img
-        src={item.images[0]}
-        className="produtos-carrinho__img"
-        alt="imagem do produto"
-      />
-
-      <div className="produtos-carrinho__conteudo">
-        <h6>
-          <a href={`/produtos/${item.id}`}>{item.nome}</a>
-        </h6>
-
-        <p>{formatPrice(item.preco)}</p>
-
-        {/* Provavelmente terá que ser alterado no futuro */}
-        <SeletorQtd
-          value={item.qtd}
-          onChange={(q) => novaQtd(item.id, q)}
-          min={1}
-          max={99}
-        />
-      </div>
-
-      <CloseButton
-        className="produtos-carrinho__remover"
-        onClick={() => remover(item.id)}
-      />
-    </div>
-  );
 }
 
 export default function CarrinhoPage() {
@@ -61,12 +28,8 @@ export default function CarrinhoPage() {
     () => itens.reduce((acc, item) => acc + item.preco * item.qtd, 0),
     [itens],
   );
-  const frete = useMemo(() => (itens.length ? 35 : 0), [itens.length]);
   const impostos = useMemo(() => (itens.length ? 20 : 0), [itens.length]);
-  const total = useMemo(
-    () => subtotal + frete + impostos,
-    [subtotal, frete, impostos],
-  );
+  const total = useMemo(() => subtotal + impostos, [subtotal, impostos]);
 
   return (
     <main>
@@ -96,11 +59,6 @@ export default function CarrinhoPage() {
           </Row>
 
           <Row>
-            <Col>Frete:</Col>
-            <Col className="text-end">{formatPrice(frete)}</Col>
-          </Row>
-
-          <Row>
             <Col>Impostos:</Col>
             <Col className="text-end">{formatPrice(impostos)}</Col>
           </Row>
@@ -112,7 +70,11 @@ export default function CarrinhoPage() {
             <Col className="text-end">{formatPrice(total)}</Col>
           </Row>
 
-          <Button className="carrinho__btn" disabled={itens.length === 0}>
+          <Button
+            className="carrinho__btn"
+            href="/pagamento"
+            disabled={itens.length === 0}
+          >
             Checkout
           </Button>
         </div>
@@ -123,11 +85,6 @@ export default function CarrinhoPage() {
         <Row>
           <Col>Subtotal:</Col>
           <Col className="text-end">{formatPrice(subtotal)}</Col>
-        </Row>
-
-        <Row>
-          <Col>Frete:</Col>
-          <Col className="text-end">{formatPrice(frete)}</Col>
         </Row>
 
         <Row>
@@ -142,7 +99,9 @@ export default function CarrinhoPage() {
           <Col className="text-end">{formatPrice(total)}</Col>
         </Row>
 
-        <Button className="carrinho__btn">Checkout</Button>
+        <Button className="carrinho__btn" href="/pagamento">
+          Checkout
+        </Button>
       </div>
     </main>
   );

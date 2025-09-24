@@ -1,0 +1,10 @@
+main {
+  margin-top: 1em;
+}
+
+.checkout-etapas {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}

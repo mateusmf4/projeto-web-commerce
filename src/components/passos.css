@@ -1,0 +1,45 @@
+.passos {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.passos__etapa {
+  display: flex;
+  align-items: center;
+}
+
+.passos__icone {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  background: #ddd;
+  color: #888;
+}
+
+.passos__icone--ativo {
+  background: #2196f3;
+  color: #fff;
+}
+
+.passos__icone--feito {
+  background: #4caf50;
+  color: #fff;
+}
+
+.passos__linha {
+  width: 60px;
+  height: 3px;
+  margin: 0 10px;
+  background: #ddd;
+  transition: all 0.3s ease;
+}
+
+.passos__linha--feito {
+  background: #2196f3;
+}

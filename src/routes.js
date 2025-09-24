@@ -6,6 +6,7 @@ export default [
     route("produtos", "routes/produtos.jsx"),
     route("produtos/:id", "routes/produtos_id.jsx"),
     route("carrinho", "routes/carrinho.jsx"),
+    route("pagamento", "routes/pagamento.jsx"),
     route("pedidos", "routes/pedidos.jsx"),
   ]),
 
