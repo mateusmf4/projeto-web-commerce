@@ -14,6 +14,10 @@ import api from "@/services/api";
 import "./pedidos.css";
 import { formatPrice } from "@/services/utils";
 
+export function meta() {
+  return [{ title: "Meus Pedidos | éComércio" }];
+}
+
 export default function LojistaPedidos() {
   const [pedidos, setPedidos] = useState([]);
   const [isLoading, setLoading] = useState(false);

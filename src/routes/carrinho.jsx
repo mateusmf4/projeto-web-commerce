@@ -5,6 +5,10 @@ import ProdsCar from "@/components/prodsCar";
 import Carrinho from "@/services/carrinho";
 import { formatPrice } from "@/services/utils";
 
+export function meta() {
+  return [{ title: "Carrinho | éComércio" }];
+}
+
 export default function CarrinhoPage() {
   const [itens, setItens] = useState(Carrinho.loadCarrinho());
 
