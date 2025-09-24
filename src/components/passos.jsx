@@ -1,11 +1,11 @@
-import { FaTruck, FaCreditCard, FaFileAlt } from "react-icons/fa";
 import "./passos.css"
+import { TruckIcon, WalletCardsIcon, FileTextIcon } from "lucide-react";
 
 export default function Passos({ step }) {
   const steps = [
-    { id: 0, label: "Entrega", icon: <FaTruck /> },
-    { id: 1, label: "Pagamento", icon: <FaCreditCard /> },
-    { id: 2, label: "Resumo", icon: <FaFileAlt /> },
+    { id: 0, label: "Entrega", icon: <TruckIcon /> },
+    { id: 1, label: "Pagamento", icon: <WalletCardsIcon /> },
+    { id: 2, label: "Resumo", icon: <FileTextIcon /> },
   ];
 
   return (
