@@ -650,7 +650,10 @@ export const PEDIDOS = [
 export const PEDIDOS_USUARIO = [
   {
     id: 1,
-    produtos: [{ produto: PRODUTOS[5], qtd: 1 }],
+    produtos: [
+      { produto: PRODUTOS[5], qtd: 1 },
+      { produto: PRODUTOS[20], qtd: 1 },
+    ],
     cliente: {
       nome: "Usuário Fulano",
       email: "usuario.fulano@example.com",

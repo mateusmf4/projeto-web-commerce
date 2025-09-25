@@ -150,7 +150,16 @@ function PedidoInfoModal({ show, pedido, onClose }) {
                   <Card.Title>
                     <small className="fw-normal">{qtd}x</small> {produto.nome}
                   </Card.Title>
-                  <Card.Subtitle>{formatPrice(produto.preco)}</Card.Subtitle>
+                  <Card.Subtitle>
+                    {formatPrice(produto.preco)}
+                    {produto.categoria === "Livros" &&
+                      pedido.status !== "cancelado" && (
+                        <span className="fw-normal">
+                          {" "}
+                          - <a href="/pedidos/#">Download Digital</a>
+                        </span>
+                      )}
+                  </Card.Subtitle>
                 </Card.Body>
               </Stack>
             </Card>
